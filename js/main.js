@@ -74,15 +74,29 @@ window.onload = function () {
 		var whiteKeyLength = 36;
 		var blackKeyLength = 25;
 		for(var i=0;i<whiteKeyLength;i++){
-			var whiteKeyActor = new CAAT.PianoKey().initialize(director,50+20*i,200,20,120,"white");
+			var whiteKeyActor = new CAAT.PianoKey().initialize(director,50+20*i,200,20,120,"white",i+blackKeyLength);
+			whiteKeyActor._down = function(){
+				this.hit();
+				playKey(this.keyIndex);
+			}
+			whiteKeyActor.mouseDown = function(){this._down();}
+			whiteKeyActor.touchStart = function(){this._down();}
 			whiteKey.push(whiteKeyActor);
 			scene.addChild(whiteKeyActor);
 		}
+		var blackKeyIndex = 0;
 		for(var i=0;i<whiteKeyLength-1;i++){
 			if((i%7!=2)&&(i%7!=6)){
-				var blackKeyActor = new CAAT.PianoKey().initialize(director,63+20*i,200,14,70,"black");
+				var blackKeyActor = new CAAT.PianoKey().initialize(director,63+20*i,200,14,70,"black",blackKeyIndex);
+				blackKeyActor._down = function(){
+					this.hit();
+					playKey(this.keyIndex);
+				}
+				blackKeyActor.mouseDown = function(){this._down();}
+				blackKeyActor.touchStart = function(){this._down();}
 				blackKey.push(blackKeyActor);
 				scene.addChild(blackKeyActor);
+				blackKeyIndex++;
 			}
 		}
 		

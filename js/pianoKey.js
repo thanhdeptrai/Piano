@@ -5,12 +5,17 @@
     }
 
     CAAT.PianoKey.prototype = {
-        initialize: function (director, posX, posY, width, height, type) {
+        initialize: function (director, posX, posY, width, height, type, keyIndex) {
             this.director = director;
             this.setBounds(posX,posY,width,height);
+			this.keyIndex = keyIndex;
 			this.hitting = false;
 			this.type = type;
-			this.shadow = new CAAT.ActorContainer().setBounds(0,0,width,height).setFillStyle(type=="white"?"#CCC":"#555").setAlpha(0);
+			this.shadow = new CAAT.ActorContainer().
+				setBounds(0,0,width,height).
+				setFillStyle(type=="white"?"#CCC":"#555").
+				setAlpha(0).
+				enableEvents(false);
 			this.addChild(this.shadow);
 			this.enableEvents(true);
             return this;
@@ -42,9 +47,6 @@
 				}
 			});
 			this.shadow.addBehavior(alphaBehavior);
-		},
-		mouseDown: function(e){
-			console.log("sds");
 		}
     }
     extend(CAAT.PianoKey, CAAT.Foundation.ActorContainer);
