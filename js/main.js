@@ -73,14 +73,12 @@ window.onload = function () {
 		var blackKey = [];
 		var whiteKeyLength = 36;
 		var blackKeyLength = 25;
+		
+		
 		for(var i=0;i<whiteKeyLength;i++){
 			var whiteKeyActor = new CAAT.PianoKey().initialize(director,50+20*i,80,20,120,"white",i+blackKeyLength);
-			whiteKeyActor._down = function(){
-				this.hit();
-				playKey(this.keyIndex);
-			}
-			whiteKeyActor.mouseDown = function(){this._down();}
-			whiteKeyActor.touchStart = function(){this._down();}
+			whiteKeyActor.mouseDown = function(){_down(this);}
+			whiteKeyActor.touchStart = function(){_down(this);}
 			whiteKey.push(whiteKeyActor);
 			scene.addChild(whiteKeyActor);
 		}
@@ -88,15 +86,18 @@ window.onload = function () {
 		for(var i=0;i<whiteKeyLength-1;i++){
 			if((i%7!=2)&&(i%7!=6)){
 				var blackKeyActor = new CAAT.PianoKey().initialize(director,63+20*i,80,14,70,"black",blackKeyIndex);
-				blackKeyActor._down = function(){
-					this.hit();
-					playKey(this.keyIndex);
-				}
-				blackKeyActor.mouseDown = function(){this._down();}
-				blackKeyActor.touchStart = function(){this._down();}
+				blackKeyActor.mouseDown = function(){_down(this);}
+				blackKeyActor.touchStart = function(){_down(this);}
 				blackKey.push(blackKeyActor);
 				scene.addChild(blackKeyActor);
 				blackKeyIndex++;
+			}
+		}
+		_down = function(keyActor){
+			keyActor.hit();
+			playKey(keyActor.keyIndex);
+			if(recording) {
+				recordData.push({keyIndex: keyActor.keyIndex, time: scene.time-recordStartTime});
 			}
 		}
 		
