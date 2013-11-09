@@ -21,11 +21,11 @@ window.onload = function () {
 			ctx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
 			ctx.fillStyle = "#0FF";
 			ctx.font = "30px Times New Roman";
-			ctx.strokeRect(300,200,200,20);
-			ctx.fillRect(300,200,200*loadedPercent/100,20)
-			ctx.fillText(loadedPercent+"%",300,190);
+			ctx.strokeRect(300,40,200,20);
+			ctx.fillRect(300,40,200*loadedPercent/100,20)
+			ctx.fillText(loadedPercent+"%",300,30);
 			//(loadedImage==0)? ctx.fillText("LOADING SOUND...",300,250):ctx.fillText("LOADING IMAGE...",300,250);
-			ctx.fillText("LOADING...",300,250);
+			ctx.fillText("LOADING...",300,90);
 			if(loadAudios&&loadImages&&(+new Date() - startTime>1000)) {
 				run(director,loadImages,loadAudios);
 				scene.removeChild(this);
@@ -74,7 +74,7 @@ window.onload = function () {
 		var whiteKeyLength = 36;
 		var blackKeyLength = 25;
 		for(var i=0;i<whiteKeyLength;i++){
-			var whiteKeyActor = new CAAT.PianoKey().initialize(director,50+20*i,200,20,120,"white",i+blackKeyLength);
+			var whiteKeyActor = new CAAT.PianoKey().initialize(director,50+20*i,80,20,120,"white",i+blackKeyLength);
 			whiteKeyActor._down = function(){
 				this.hit();
 				playKey(this.keyIndex);
@@ -87,7 +87,7 @@ window.onload = function () {
 		var blackKeyIndex = 0;
 		for(var i=0;i<whiteKeyLength-1;i++){
 			if((i%7!=2)&&(i%7!=6)){
-				var blackKeyActor = new CAAT.PianoKey().initialize(director,63+20*i,200,14,70,"black",blackKeyIndex);
+				var blackKeyActor = new CAAT.PianoKey().initialize(director,63+20*i,80,14,70,"black",blackKeyIndex);
 				blackKeyActor._down = function(){
 					this.hit();
 					playKey(this.keyIndex);
@@ -125,11 +125,11 @@ window.onload = function () {
 				}
 			}
 		}).
-			setLocation(100,120).
+			setLocation(100,0).
 			setScaleAnchored(75/recordImage.singleHeight,100/recordImage.singleWidth,0,0);
 		scene.addChild(recordButton);
 		
-		var clockActor = new CAAT.ActorContainer().setBounds(210,160,100,100);
+		var clockActor = new CAAT.ActorContainer().setBounds(210,40,10,10);
 		clockActor.paint = function(director,time){
 			var ctx = director.ctx;
 			if(!recording&&!playingRecord) return;
