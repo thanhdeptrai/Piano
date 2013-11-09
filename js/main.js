@@ -9,7 +9,7 @@ window.onload = function () {
 	var loadAudios,loadImages;
     windowLoad();
 	function windowLoad(){	
-		//CAAT.DEBUG = 1;
+		CAAT.DEBUG = 1;
 		var director = new CAAT.Foundation.Director().initialize(CANVAS_WIDTH, CANVAS_HEIGHT, document.getElementById("canvas"));
 		var scene = director.createScene();
 		var startTime = +new Date();
@@ -93,7 +93,10 @@ window.onload = function () {
 		var currentRecordIndex = 0;
 		var recordImage = new CAAT.SpriteImage().initialize(director.getImage("recordButton"),1,1);
 		var recordButton = new CAAT.Button().initialize(director,recordImage,0,0,0,0,function(){
-			if(playingRecord) return;
+			if(playingRecord) {
+				playingRecord = false;
+				return;
+			}
 			if(!recording){
 				recording = true;
 				recordData = [];

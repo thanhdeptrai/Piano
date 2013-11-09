@@ -42,6 +42,9 @@
 				}
 			});
 			this.shadow.addBehavior(alphaBehavior);
+		},
+		mouseDown: function(e){
+			console.log("sds");
 		}
     }
     extend(CAAT.PianoKey, CAAT.Foundation.ActorContainer);
