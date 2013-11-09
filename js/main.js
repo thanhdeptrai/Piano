@@ -94,6 +94,7 @@ window.onload = function () {
 			}
 		}
 		_down = function(keyActor){
+			if(playingRecord) return;
 			keyActor.hit();
 			playKey(keyActor.keyIndex);
 			if(recording) {
