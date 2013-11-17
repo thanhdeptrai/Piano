@@ -3,6 +3,11 @@ var CANVAS_HEIGHT  = 600;
 var SFX_VOLUME = 100;
 var MUSIC_VOLUME = 100;
 var PLAYBACK_SPEED = 1;
+musicData = [
+	"G4 1292,51 1375,50 1500,48 1792,47 2083,48 2459,47 2750,46 3000,44 3334,47 4500,48 4750,47 5043,46 5334,43 5709,47 6667,48 6959,47 7334,46 7584,44 8000,46 8751,47 9088,48 9791",
+	"36 708,39 917,40 1083,40 1333,32 1333,41 1791,41 2250,36 2666,39 3166,36 4082,39 4291,40 4500,41 4708,29 4958,40 4958,43 5416,43 5792,36 6249,38 6708,36 7541,43 7791,44 8000,45 8125,45 8332,29 8374,46 8750,46 9166,39 9208,41 9292,39 9666,41 10125,47 10583,47 10957,48 10999,47 11291,46 11541,45 11834,27 11875,36 12333,38 12791,36 13250,27 13710,46 14165,45 14625,43 15083,35 15500,43 15541,44 16000,44 16458,39 16875,42 17333,39 18458,43 18666,42 18833,42 19041,27 19041,43 19541,43 19958,36 20458,38 20875,36 22041,39 22293,40 22500,41 22750,33 22750,42 23208,40 23583,37 23625,42 23625,37 24166,40 24625",
+	
+];
 window.onload = function () {
     var loadedImage = 0;
 	var loadedAudio = 0;
@@ -25,6 +30,7 @@ window.onload = function () {
 			ctx.fillStyle = backgroundGradient;
 			ctx.fillRect(-this.x,-this.y,CANVAS_WIDTH,CANVAS_HEIGHT);
 			
+			
 			var barLength = 300;
 			var barHeight = 15;
 			var barPoxX = (CANVAS_WIDTH - barLength)/2;
@@ -34,13 +40,10 @@ window.onload = function () {
 			ctx.beginPath();
 			ctx.moveTo(barPoxX,barPoxY);
 			ctx.lineTo(barPoxX+barLength,barPoxY);
-			ctx.bezierCurveTo(	barPoxX+barLength+barHeight,barPoxY, 
-								barPoxX+barLength+barHeight,barPoxY+barHeight,
-								barPoxX+barLength,barPoxY+barHeight);
+			ctx.arc(barPoxX+barLength,barPoxY+barHeight/2,barHeight/2,-Math.PI/2, Math.PI/2);
+			ctx.moveTo(barPoxX+barLength,barPoxY+barHeight);
 			ctx.lineTo(barPoxX,barPoxY+barHeight);
-			ctx.bezierCurveTo(	barPoxX-barHeight,barPoxY+barHeight, 
-								barPoxX-barHeight,barPoxY,
-								barPoxX,barPoxY);
+			ctx.arc(barPoxX,barPoxY+barHeight/2,barHeight/2,Math.PI/2,3/2*Math.PI);
 			ctx.closePath();
 			ctx.fill();
 			if(loadedPercent<0) loadedPercent = 0;
@@ -50,23 +53,21 @@ window.onload = function () {
 			ctx.fillText("LOADING...",barPoxX,90);
 			if(loadedPercent<1) return;
 			var barGradient = ctx.createLinearGradient(barPoxX,barPoxY,barPoxX+barLength,barPoxY);
-			barGradient.addColorStop(0,"#0FF");
+			barGradient.addColorStop(1,"#0FF");
 			barGradient.addColorStop(0.5,"#FF0");
-			barGradient.addColorStop(1,"#FFF");
+			barGradient.addColorStop(0,"#FFF");
 			ctx.fillStyle = barGradient;
 			ctx.beginPath();
 			ctx.moveTo(barPoxX,barPoxY+barHeight);
-			ctx.bezierCurveTo(	barPoxX-barHeight,barPoxY+barHeight, 
-								barPoxX-barHeight,barPoxY,
-								barPoxX,barPoxY);
+			ctx.arc(barPoxX,barPoxY+barHeight/2,barHeight/2,Math.PI/2,3/2*Math.PI);
 			ctx.closePath();
 			ctx.fill();
-			ctx.fillRect(barPoxX,barPoxY,barLength*loadedPercent/100,barHeight)
+			ctx.fillRect(barPoxX,barPoxY,barLength*loadedPercent/100,barHeight);
+			
+			if(loadedPercent<2) return;
 			ctx.beginPath();
 			ctx.moveTo(barPoxX+barLength*loadedPercent/100,barPoxY);
-			ctx.bezierCurveTo(	barPoxX+barLength*loadedPercent/100+barHeight,barPoxY, 
-								barPoxX+barLength*loadedPercent/100+barHeight,barPoxY+barHeight,
-								barPoxX+barLength*loadedPercent/100,barPoxY+barHeight);
+			ctx.arc(barPoxX+barLength*loadedPercent/100,barPoxY+barHeight/2,barHeight/2,-Math.PI/2, Math.PI/2);
 			ctx.closePath();
 			ctx.fill();
 			if(loadAudios&&loadImages&&(+new Date() - startTime>1000)) {
@@ -128,8 +129,10 @@ window.onload = function () {
 		var blackKeyWidth = 14;
 		var blackKeyHeight = 70;
 		var playbackBoardPoxY = 100;
-		
-		var background = new CAAT.ActorContainer().setBounds(0,0,director.width,director.height).setFillStyle("#444");
+		var backgroundGradient= director.ctx.createLinearGradient(0,0,0,director.height); 
+			backgroundGradient.addColorStop(0,"#000");
+			backgroundGradient.addColorStop(1,"#FFF");
+		var background = new CAAT.ActorContainer().setBounds(0,0,director.width,director.height).setFillStyle(backgroundGradient);
 		scene.addChild(background);
 		
 		var pausedStart = 0;
@@ -149,6 +152,7 @@ window.onload = function () {
 		function (scene_time, timer_time, timertask_instance) {   // cancel
 
 		});
+		
 		
 		for(var i=0;i<whiteKeyLength;i++){
 			var whiteKeyActor = new CAAT.PianoKey().initialize(director,keyBoardPosX+whiteKeyWidth*i,keyBoardPosY,whiteKeyWidth,whiteKeyHeight,"white",i+blackKeyLength);
@@ -189,6 +193,13 @@ window.onload = function () {
 		
 		var recordListButtons = [];
 		var maxRecord = 20;
+		
+		for(var i=0;i<musicData.length;i++){
+			addRecord();
+			recordDataString.push(musicData[i]);
+			if(i==musicData.length-1)recordData = stringToRecordData(musicData[i]);
+		}
+		
 		function addRecord(){
 			var index = recordListButtons.length;
 			var width = (index>9)?30:20;
@@ -405,8 +416,17 @@ window.onload = function () {
 			var outputData = [];
 			if(str.length==0) return outputData;
 			var stringArray = str.split(",");
+			console.log(stringArray.length);
 			for(var i=0;i<stringArray.length;i++){
 				var temp = stringArray[i].split(" ");
+				if(temp[0].charCodeAt(0)>57){
+					for(var j=0;j<keyData.length;j++){
+						if(temp[0] === keyData[j].name){
+							temp[0] = j;
+							break;
+						}
+					}
+				}
 				outputData.push({keyIndex:temp[0]<<0,time:temp[1]<<0});
 			}
 			return outputData;
