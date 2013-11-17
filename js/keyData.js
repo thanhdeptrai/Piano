@@ -5,6 +5,7 @@
 		soundIndex: 25,
 		isShift: true,
 		type: "black",
+		name: "C1#"
 	},
 	{
 		index: 1,
@@ -12,6 +13,7 @@
 		soundIndex: 14,
 		isShift: true,
 		type: "black",
+		name: "D1#"
 	},
 	{
 		index: 2,
@@ -19,6 +21,7 @@
 		soundIndex: 7,
 		isShift: true,
 		type: "black",
+		name: "F1#"
 	},
 	{
 		index: 3,
@@ -26,6 +29,7 @@
 		soundIndex: 6,
 		isShift: true,
 		type: "black",
+		name: "G1#"
 	},
 	{
 		index: 4,
@@ -33,6 +37,7 @@
 		soundIndex: 5,
 		isShift: true,
 		type: "black",
+		name: "A2#"
 	},
 	{
 		index: 5,
@@ -40,6 +45,7 @@
 		soundIndex: 4,
 		isShift: true,
 		type: "black",
+		name: "C2#"
 	},
 	{
 		index: 6,
@@ -47,6 +53,7 @@
 		soundIndex: 3,
 		isShift: true,
 		type: "black",
+		name: "D2#"
 	},
 	{
 		index: 7,
@@ -54,6 +61,7 @@
 		soundIndex: 2,
 		isShift: true,
 		type: "black",
+		name: "F2#"
 	},
 	{
 		index: 8,
@@ -61,6 +69,7 @@
 		soundIndex: 1,
 		isShift: true,
 		type: "black",
+		name: "G2#"
 	},
 	{
 		index: 9,
@@ -68,6 +77,7 @@
 		soundIndex: 24,
 		isShift: true,
 		type: "black",
+		name: "A3#"
 	},
 	{
 		index: 10,
@@ -75,6 +85,7 @@
 		soundIndex: 23,
 		isShift: true,
 		type: "black",
+		name: "C3#"
 	},
 	{
 		index: 11,
@@ -82,6 +93,7 @@
 		soundIndex: 22,
 		isShift: true,
 		type: "black",
+		name: "D3#"
 	},
 	{
 		index: 12,
@@ -89,6 +101,7 @@
 		soundIndex: 21,
 		isShift: true,
 		type: "black",
+		name: "F3#"
 	},
 	{
 		index: 13,
@@ -96,6 +109,7 @@
 		soundIndex: 20,
 		isShift: true,
 		type: "black",
+		name: "G3#"
 	},
 	{
 		index: 14,
@@ -103,6 +117,7 @@
 		soundIndex: 19,
 		isShift: true,
 		type: "black",
+		name: "A4#"
 	},
 	{
 		index: 15,
@@ -110,6 +125,7 @@
 		soundIndex: 18,
 		isShift: true,
 		type: "black",
+		name: "C4#"
 	},
 	{
 		index: 16,
@@ -117,6 +133,7 @@
 		soundIndex: 17,
 		isShift: true,
 		type: "black",
+		name: "D4#"
 	},
 	{
 		index: 17,
@@ -124,6 +141,7 @@
 		soundIndex: 16,
 		isShift: true,
 		type: "black",
+		name: "F4#"
 	},
 	{
 		index: 18,
@@ -131,6 +149,7 @@
 		soundIndex: 15,
 		isShift: true,
 		type: "black",
+		name: "G4#"
 	},
 	{
 		index: 19,
@@ -138,6 +157,7 @@
 		soundIndex: 13,
 		isShift: true,
 		type: "black",
+		name: "A5#"
 	},
 	{
 		index: 20,
@@ -145,6 +165,7 @@
 		soundIndex: 12,
 		isShift: true,
 		type: "black",
+		name: "C5#"
 	},
 	{
 		index: 21,
@@ -152,6 +173,7 @@
 		soundIndex: 11,
 		isShift: true,
 		type: "black",
+		name: "D5#"
 	},
 	{
 		index: 22,
@@ -159,6 +181,7 @@
 		soundIndex: 10,
 		isShift: true,
 		type: "black",
+		name: "F5#"
 	},
 	{
 		index: 23,
@@ -166,6 +189,7 @@
 		soundIndex: 9,
 		isShift: true,
 		type: "black",
+		name: "G5#"
 	},
 	{
 		index: 24,
@@ -173,6 +197,7 @@
 		soundIndex: 8,
 		isShift: true,
 		type: "black",
+		name: "A6#"
 	},
 	{
 		index: 0,
@@ -180,6 +205,7 @@
 		soundIndex: 61,
 		isShift: false,
 		type: "white",
+		name: "C1"
 	},
 	{
 		index: 1,
@@ -187,6 +213,7 @@
 		soundIndex: 50,
 		isShift: false,
 		type: "white",
+		name: "D1"
 	},
 	{
 		index: 2,
@@ -194,6 +221,7 @@
 		soundIndex: 39,
 		isShift: false,
 		type: "white",
+		name: "E1"
 	},
 	{
 		index: 3,
@@ -201,6 +229,7 @@
 		soundIndex: 31,
 		isShift: false,
 		type: "white",
+		name: "F1"
 	},
 	{
 		index: 4,
@@ -208,6 +237,7 @@
 		soundIndex: 30,
 		isShift: false,
 		type: "white",
+		name: "G1"
 	},
 	{
 		index: 5,
@@ -215,6 +245,7 @@
 		soundIndex: 29,
 		isShift: false,
 		type: "white",
+		name: "A2"
 	},
 	{
 		index: 6,
@@ -222,6 +253,7 @@
 		soundIndex: 28,
 		isShift: false,
 		type: "white",
+		name: "B2"
 	},
 	{
 		index: 7,
@@ -229,6 +261,7 @@
 		soundIndex: 27,
 		isShift: false,
 		type: "white",
+		name: "C2"
 	},
 	{
 		index: 8,
@@ -236,6 +269,7 @@
 		soundIndex: 26,
 		isShift: false,
 		type: "white",
+		name: "D2"
 	},
 	{
 		index: 9,
@@ -243,6 +277,7 @@
 		soundIndex: 60,
 		isShift: false,
 		type: "white",
+		name: "E2"
 	},
 	{
 		index: 10,
@@ -250,6 +285,7 @@
 		soundIndex: 59,
 		isShift: false,
 		type: "white",
+		name: "F2"
 	},
 	{
 		index: 11,
@@ -257,6 +293,7 @@
 		soundIndex: 58,
 		isShift: false,
 		type: "white",
+		name: "G2"
 	},
 	{
 		index: 12,
@@ -264,6 +301,7 @@
 		soundIndex: 57,
 		isShift: false,
 		type: "white",
+		name: "A3"
 	},
 	{
 		index: 13,
@@ -271,6 +309,7 @@
 		soundIndex: 56,
 		isShift: false,
 		type: "white",
+		name: "B3"
 	},
 	{
 		index: 14,
@@ -278,6 +317,7 @@
 		soundIndex: 55,
 		isShift: false,
 		type: "white",
+		name: "C3"
 	},
 	{
 		index: 15,
@@ -285,6 +325,7 @@
 		soundIndex: 54,
 		isShift: false,
 		type: "white",
+		name: "D3"
 	},
 	{
 		index: 16,
@@ -292,6 +333,7 @@
 		soundIndex: 53,
 		isShift: false,
 		type: "white",
+		name: "E3"
 	},
 	{
 		index: 17,
@@ -299,6 +341,7 @@
 		soundIndex: 52,
 		isShift: false,
 		type: "white",
+		name: "F3"
 	},
 	{
 		index: 18,
@@ -306,6 +349,7 @@
 		soundIndex: 51,
 		isShift: false,
 		type: "white",
+		name: "G3"
 	},
 	{
 		index: 19,
@@ -313,6 +357,7 @@
 		soundIndex: 49,
 		isShift: false,
 		type: "white",
+		name: "A4"
 	},
 	{
 		index: 20,
@@ -320,6 +365,7 @@
 		soundIndex: 48,
 		isShift: false,
 		type: "white",
+		name: "B4"
 	},
 	{
 		index: 21,
@@ -327,6 +373,7 @@
 		soundIndex: 47,
 		isShift: false,
 		type: "white",
+		name: "C4"
 	},
 	{
 		index: 22,
@@ -334,6 +381,7 @@
 		soundIndex: 46,
 		isShift: false,
 		type: "white",
+		name: "D4"
 	},
 	{
 		index: 23,
@@ -341,6 +389,7 @@
 		soundIndex: 45,
 		isShift: false,
 		type: "white",
+		name: "E4"
 	},
 	{
 		index: 24,
@@ -348,6 +397,7 @@
 		soundIndex: 44,
 		isShift: false,
 		type: "white",
+		name: "F4"
 	},
 	{
 		index: 25,
@@ -355,6 +405,7 @@
 		soundIndex: 43,
 		isShift: false,
 		type: "white",
+		name: "G4"
 	},
 	{
 		index: 26,
@@ -362,6 +413,7 @@
 		soundIndex: 42,
 		isShift: false,
 		type: "white",
+		name: "A5"
 	},
 	{
 		index: 27,
@@ -369,6 +421,7 @@
 		soundIndex: 41,
 		isShift: false,
 		type: "white",
+		name: "B5"
 	},
 	{
 		index: 28,
@@ -376,6 +429,7 @@
 		soundIndex: 40,
 		isShift: false,
 		type: "white",
+		name: "C5"
 	},
 	{
 		index: 29,
@@ -383,6 +437,7 @@
 		soundIndex: 38,
 		isShift: false,
 		type: "white",
+		name: "D5"
 	},
 	{
 		index: 30,
@@ -390,6 +445,7 @@
 		soundIndex: 37,
 		isShift: false,
 		type: "white",
+		name: "E5"
 	},
 	{
 		index: 31,
@@ -397,6 +453,7 @@
 		soundIndex: 36,
 		isShift: false,
 		type: "white",
+		name: "F5"
 	},
 	{
 		index: 32,
@@ -404,6 +461,7 @@
 		soundIndex: 35,
 		isShift: false,
 		type: "white",
+		name: "G5"
 	},
 	{
 		index: 33,
@@ -411,6 +469,7 @@
 		soundIndex: 34,
 		isShift: false,
 		type: "white",
+		name: "A6"
 	},
 	{
 		index: 34,
@@ -418,6 +477,7 @@
 		soundIndex: 33,
 		isShift: false,
 		type: "white",
+		name: "B6"
 	},
 	{
 		index: 35,
@@ -425,5 +485,6 @@
 		soundIndex: 32,
 		isShift: false,
 		type: "white",
+		name: "C6"
 	},
 ]

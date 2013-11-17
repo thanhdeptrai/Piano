@@ -13,7 +13,7 @@
 			this.type = type;
 			this.shadow = new CAAT.ActorContainer().
 				setBounds(0,0,width,height).
-				setFillStyle(type=="white"?"#CCC":"#555").
+				setFillStyle(type=="white"?"#CCC":"#CCC").
 				setAlpha(0).
 				enableEvents(false);
 			this.addChild(this.shadow);
@@ -24,13 +24,11 @@
         paint: function (director,time) {
 			CAAT.PianoKey.superclass.paint.call(this, director, time);
             var ctx = director.ctx;
+			ctx.fillStyle = (this.type == "white")?"#FFF":"#000";
+			ctx.fillRect(0,0,this.width,this.height);
 			if(this.type == "white"){
 				ctx.strokeStyle = "#000";
 				ctx.strokeRect(0,0,this.width,this.height);
-			}
-			else{
-				ctx.fillStyle = "#000";
-				ctx.fillRect(0,0,this.width,this.height);
 			}
             return this;
         },

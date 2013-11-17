@@ -15147,7 +15147,9 @@ CAAT.Module({
 
             CAAT.FPS = fps || 60;
             CAAT.renderEnabled = true;
-            if (CAAT.NO_RAF) {
+			// Ko dung Render Animation Frame nua
+            //if (CAAT.NO_RAF) { 
+            if (true) {
                 CAAT.INTERVAL_ID = setInterval(
                     function () {
                         var t = new Date().getTime();
