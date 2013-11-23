@@ -19,7 +19,7 @@ window.onload = function () {
 	var loadAudios,loadImages;
     windowLoad();
 	function windowLoad(){	
-		CAAT.DEBUG = 1;
+		//CAAT.DEBUG = 1;
 		
 		var director = new CAAT.Foundation.Director().initialize(CANVAS_WIDTH, CANVAS_HEIGHT, document.getElementById("canvas"));
 		var scene = director.createScene();
@@ -90,6 +90,7 @@ window.onload = function () {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			loadAudio=1;
+
 		}
 		});
 			
