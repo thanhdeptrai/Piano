@@ -13,16 +13,6 @@ musicData = [
 	
 ];
 window.onload = function () {
-		var loader = new widgets.Loader({
-		id: "loader",
-		bars: 12,
-		radius: 20,
-		lineWidth: 3,
-		lineHeight: 10,
-		message:"New loading message..."
-	});
-	
-
     var loadedImage = 0;
 	var loadedAudio = 0;
 	var loadedPercent = 0;
@@ -88,7 +78,6 @@ window.onload = function () {
 			ctx.fill();
 			if(processed&&loadImages&&(+new Date() - startTime>1000)) {
 				run(director,loadImages,loadAudios);
-				loader.stop();	
 				scene.removeChild(this);
 			}
 		}
