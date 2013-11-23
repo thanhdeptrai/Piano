@@ -40,8 +40,7 @@ var Base64Binary = {
 	decode: function(input, arrayBuffer) {
 		//get last chars to see if are valid
 		var lkey1 = this._keyStr.indexOf(input.charAt(input.length-1));		 
-		var lkey2 = this._keyStr.indexOf(input.charAt(input.length-1));		 
-
+		var lkey2 = this._keyStr.indexOf(input.charAt(input.length-1));	 
 		var bytes = Math.ceil( (3*input.length) / 4.0);
 		if (lkey1 == 64) bytes--; //padding chars, so skip
 		if (lkey2 == 64) bytes--; //padding chars, so skip

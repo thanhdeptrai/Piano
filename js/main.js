@@ -17,9 +17,10 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
+	var processed = false;
     windowLoad();
 	function windowLoad(){	
-		//CAAT.DEBUG = 1;
+		CAAT.DEBUG = 1;
 		
 		var director = new CAAT.Foundation.Director().initialize(CANVAS_WIDTH, CANVAS_HEIGHT, document.getElementById("canvas"));
 		var scene = director.createScene();
@@ -75,7 +76,7 @@ window.onload = function () {
 			ctx.arc(barPoxX+barLength*loadedPercent/100,barPoxY+barHeight/2,barHeight/2,-Math.PI/2, Math.PI/2);
 			ctx.closePath();
 			ctx.fill();
-			if(loadImages&&(+new Date() - startTime>1000)) {
+			if(processed&&loadImages&&(+new Date() - startTime>1000)) {
 				run(director,loadImages,loadAudios);
 				scene.removeChild(this);
 			}
@@ -84,16 +85,28 @@ window.onload = function () {
 		CAAT.loop(60);
 	}
     function load() {
-		loadAudio=0;
+		loadMaxAudio=10;
+		loadAudio = 0;
+		maxSoundIndex = 87;
+		processedSound = 0;
 		MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
 		instrument: "acoustic_grand_piano",
 		callback: function() {
-			loadAudio=1;
-
+			loadAudio=loadMaxAudio;
 		}
 		});
-			
+		MIDI.onloadOne = function(){
+			processedSound++;
+			loadedPercent = Math.round((processedSound+loadAudio+loadedImage)/elementLength*100);
+			if(processedSound == maxSoundIndex) MIDI.onloadAll();
+		}
+		MIDI.onloadAll = function(){
+			processed = true;
+		}
+		if (!(window.webkitAudioContext)) {	
+			MIDI.onloadAll();
+		}
         var imageElement = new CAAT.Module.Preloader.Preloader().
 			addElement("recordButton","img/recordButton.png").
 			addElement("playButton","img/playButton.png").
@@ -101,7 +114,7 @@ window.onload = function () {
 			addElement("deleteButton","img/deleteButton.png").
 			addElement("pauseButton","img/pauseButton.png");
 		
-		var elementLength =imageElement.elements.length+1;
+		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
 
         imageElement.load(
 		function onAllAssetsLoaded(images) {
@@ -109,7 +122,7 @@ window.onload = function () {
 		},
 		function onEachLoad(index){
 			loadedImage++;
-			loadedPercent = Math.round((loadAudio+loadedImage)/elementLength*100);
+			loadedPercent = Math.round((processedSound+loadAudio+loadedImage)/elementLength*100);
 		});
     }
     function run(director,images,audios) {
@@ -123,7 +136,7 @@ window.onload = function () {
 		var blackKeyLength = 25;
 		
 		var keyBoardPosX = 50;
-		var keyBoardPosY = 300;
+		var keyBoardPosY = 450;
 		var whiteKeyWidth = 20;
 		var whiteKeyHeight = 120;
 		var blackKeyWidth = 14;
@@ -183,6 +196,7 @@ window.onload = function () {
 		var recording = false;
 		var playingRecord = false;
 		var pausingRecord = false;
+		var autoPlay = true;
 		var recordStartTime = 0;
 		var recordData = [];
 		var currentRecordDataIndex = 0;
@@ -322,7 +336,7 @@ window.onload = function () {
 				var remainTime = recordData[recordData.length-1].time + recordStartTime - ((pausingRecord)?pausedStart:scene.time);
 				var playedTime = recordData[recordData.length-1].time - remainTime;
 				if(playedTime>=recordData[currentRecordIndex].time/PLAYBACK_SPEED){
-					playKey(recordData[currentRecordIndex].keyIndex);
+					if(autoPlay)playKey(recordData[currentRecordIndex].keyIndex);
 					currentRecordIndex++;
 					if(currentRecordIndex==recordData.length) {
 						playingRecord = false;
@@ -344,28 +358,43 @@ window.onload = function () {
 		var timePerScene = 3000;
 		var playbackBoard = new CAAT.ActorContainer().setBounds(0,playbackBoardPoxY,whiteKeyLength*whiteKeyWidth,keyBoardPosY-playbackBoardPoxY);
 		var playbackKey = new CAAT.ActorContainer().setBounds(0,0,whiteKeyLength*whiteKeyWidth,keyBoardPosY-playbackBoardPoxY);
+		var fff = false;
 		playbackKey.paint = function(director,time){
 			var ctx = director.ctx;
 			if(playingRecord){
 				var playedTime = ((pausingRecord)?pausedStart:time) - recordStartTime;
 				var passedPixel = playedTime/timePerScene*this.height*Math.pow(PLAYBACK_SPEED,2);
+				
+				if(!fff) var start = Date.now();
+				
 				for(var i=currentRecordIndex;i<recordData.length;i++){
 					var currentKey = keyData[recordData[i].keyIndex];
 					if(recordData[i].time>(playedTime+timePerScene)/Math.sqrt(PLAYBACK_SPEED)) break;
 					var hitKeyActor;
+					ctx.font = "20px Times New Roman";
 					if(currentKey.type == "white"){
 						hitKeyActor = whiteKey[currentKey.index];
 						ctx.fillStyle = "#FFF";
 						ctx.strokeStyle = "#000";
-						ctx.fillRect(hitKeyActor.x,this.height + passedPixel -hitKeyActor.width - recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED,hitKeyActor.width,hitKeyActor.width);
-						ctx.strokeRect(hitKeyActor.x,this.height + passedPixel- hitKeyActor.width - recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED,hitKeyActor.width,hitKeyActor.width);
-						
+						var posY = this.height + passedPixel -hitKeyActor.width - recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED;
+						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						ctx.strokeRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						ctx.fillStyle = "#000";
+						//ctx.fillText(String.fromCharCode(currentKey.keyCode).toLowerCase(),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					} 
 					else {
 						hitKeyActor = blackKey[currentKey.index];
 						ctx.fillStyle = "#000";
-						ctx.fillRect(hitKeyActor.x,this.height + passedPixel - hitKeyActor.width-recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED,hitKeyActor.width,hitKeyActor.width);
+						var posY = this.height + passedPixel - hitKeyActor.width-recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED;
+						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						ctx.fillStyle = "#FFF";
+						//ctx.fillText(String.fromCharCode(currentKey.keyCode),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					}
+				}
+				
+				if(!fff){
+					console.log(Date.now()-start);
+					fff =true;
 				}
 			}
 		}
@@ -386,7 +415,7 @@ window.onload = function () {
 		
 		CAAT.registerKeyListener(
 		function event(e){
-			if(playingRecord) return;
+			if(playingRecord&&autoPlay) return;
 			if(e.getAction() === "down"){
 				var keyIndex = -1;
 				for(var i=0;i<keyData.length;i++){

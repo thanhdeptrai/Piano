@@ -124,7 +124,7 @@ var setPlugin = function(root) {
 */
 
 if (window.AudioContext || window.webkitAudioContext) (function () {
-
+	console.log("fdf");
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
 	var root = MIDI.WebAudio = {
 		api: "webaudio"
@@ -143,6 +143,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 		var base64 = MIDI.Soundfont[instrument][url].split(",")[1];
 		var buffer = Base64Binary.decodeArrayBuffer(base64);
 		ctx.decodeAudioData(buffer, function (buffer) {
+			MIDI.onloadOne();
 			var msg = url;
 			while (msg.length < 3) msg += "&nbsp;";
 			if (typeof (MIDI.loader) !== "undefined") {
