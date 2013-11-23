@@ -7,7 +7,7 @@ Sound = {
 		}
 		this.sfxChannelId = [];
 		this.musicChannelId;
-		this.sfxLength = 16;
+		this.sfxLength = 100;
 	},
 	playSfx: function(soundId){
 		var self = this;

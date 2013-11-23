@@ -11,7 +11,7 @@
 			this.keyIndex = keyIndex;
 			this.hitting = false;
 			this.type = type;
-			var shadowGradient= director.ctx.createLinearGradient(0,0,0,height);
+			var shadowGradient = director.ctx.createLinearGradient(0,0,0,height);
 			shadowGradient.addColorStop(1,"#666");
 			shadowGradient.addColorStop(0,"#FFF");
 			this.shadow = new CAAT.ActorContainer().
@@ -26,14 +26,15 @@
         paint: function (director,time) {
 			CAAT.PianoKey.superclass.paint.call(this, director, time);
             var ctx = director.ctx;
-			/*
+			
 			ctx.fillStyle = (this.type == "white")?"#FFF":"#000";
 			ctx.fillRect(0,0,this.width,this.height);
 			if(this.type == "white"){
 				ctx.strokeStyle = "#000";
 				ctx.strokeRect(0,0,this.width,this.height);
 			}
-			*/
+			
+			/*
 			var width = this.width;
             var height = this.height;
 			ctx.fillStyle = (this.type == "white")?"#FFF":"#000";
@@ -53,6 +54,7 @@
             ctx.closePath();
 			ctx.fill();
 			ctx.stroke();
+			*/
             return this;
         },
 		hit: function(){
