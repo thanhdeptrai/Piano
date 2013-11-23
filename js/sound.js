@@ -38,7 +38,7 @@ Sound = {
                         var velocity = 127; // how hard the note hits
 
 		MIDI.noteOn(0,soundId, velocity, delay);
-		MIDI.noteOff(0, soundId, delay + 0.75);
+		MIDI.noteOff(0, soundId, delay + 75);
 	},
 	playMusic:function(soundId,endCallback){
 		if(this.musicChannelId) this.audioObjects[this.musicChannelId].stop();

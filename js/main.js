@@ -380,7 +380,7 @@ window.onload = function () {
 						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
 						ctx.strokeRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
 						ctx.fillStyle = "#000";
-						//ctx.fillText(String.fromCharCode(currentKey.keyCode).toLowerCase(),hitKeyActor.x+2,hitKeyActor.width+posY-2);
+						ctx.fillText(String.fromCharCode(currentKey.keyCode).toLowerCase(),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					} 
 					else {
 						hitKeyActor = blackKey[currentKey.index];
@@ -388,7 +388,7 @@ window.onload = function () {
 						var posY = this.height + passedPixel - hitKeyActor.width-recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED;
 						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
 						ctx.fillStyle = "#FFF";
-						//ctx.fillText(String.fromCharCode(currentKey.keyCode),hitKeyActor.x+2,hitKeyActor.width+posY-2);
+						ctx.fillText(String.fromCharCode(currentKey.keyCode),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					}
 				}
 				
