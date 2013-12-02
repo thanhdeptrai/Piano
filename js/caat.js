@@ -261,7 +261,7 @@ TIME: 04:58:32
 
             c= c.extend( this.extendWith, this.constants, this.name, this.aliases, { decorated : this.decorated } );
 
-            //console.log("Created module: "+this.name);
+            console.log("Created module: "+this.name);
 
             if ( this.callback ) {
                 this.callback();
@@ -6516,7 +6516,7 @@ CAAT.Module({
                 if (null !== audio) {
 
                     audio.src = this.__getAudioUrl(url);
-                    //console.log("Loading audio: "+audio.src);
+                    console.log("Loading audio: "+audio.src);
                     audio.preload = "auto";
                     audio.load();
                     if (endplaying_callback) {
@@ -14625,7 +14625,7 @@ CAAT.Module( {
                 return this.action;
             };
 
-            this.getModifiers= function() {
+            this.modifiers= function() {
                 return this.modifiers;
             };
 
@@ -15147,9 +15147,7 @@ CAAT.Module({
 
             CAAT.FPS = fps || 60;
             CAAT.renderEnabled = true;
-			// Ko dung Render Animation Frame nua
-            //if (CAAT.NO_RAF) { 
-            if (true) {
+            if (CAAT.NO_RAF) {
                 CAAT.INTERVAL_ID = setInterval(
                     function () {
                         var t = new Date().getTime();

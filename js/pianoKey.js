@@ -18,7 +18,7 @@
 				setBounds(0,0,width,height).
 				setFillStyle(type=="white"?shadowGradient:"#555").
 				setAlpha(0).
-				enableEvents(false);
+				enableEvents(false).setVisible(false);
 			this.addChild(this.shadow);
 			this.enableEvents(true);
             return this;
@@ -64,10 +64,13 @@
 			var alphaBehavior = new CAAT.Behavior.AlphaBehavior().setValues(1, 0).setDelayTime(0, 1000).setCycle(false).
 			addListener({
 				behaviorExpired: function(director, time) {
+					self.shadow.setVisible(false);
 					self.shadow.emptyBehaviorList();
 				}
 			});
 			this.shadow.addBehavior(alphaBehavior);
+			this.shadow.setVisible(true);
+			return this;
 		}
     }
     extend(CAAT.PianoKey, CAAT.Foundation.ActorContainer);
