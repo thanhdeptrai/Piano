@@ -139,6 +139,10 @@ window.onload = function () {
 		var blackKey = [];
 		var whiteKeyLength = 36;
 		var blackKeyLength = 25;
+
+		var timePlayOffset=200;
+		var Point=0;
+		var pointBonus=100;
 		
 		var keyBoardPosX = 50;
 		var keyBoardPosY = 450;
@@ -287,6 +291,7 @@ window.onload = function () {
 		var pauseImage = new CAAT.SpriteImage().initialize(director.getImage("pauseButton"),1,1);
 		var playButton = new CAAT.Button().initialize(director,playImage,0,0,0,0,function(){
 			if(recording) return;
+
 			if(!playingRecord){
 				if(currentRecordDataIndex != selectingRecord){
 					currentRecordDataIndex = selectingRecord;
@@ -331,6 +336,7 @@ window.onload = function () {
 		
 		var clockActor = new CAAT.ActorContainer().setBounds(260,40,10,10);
 		clockActor.timeText="";
+		clockActor.playedTime=0;
 		clockActor.update=function(){
 			if(!recording&&!playingRecord) return;
 			if(recording){
@@ -339,6 +345,7 @@ window.onload = function () {
 			if(playingRecord){
 				var remainTime = recordData[recordData.length-1].time + recordStartTime - ((pausingRecord)?pausedStart:scene.time);
 				var playedTime = recordData[recordData.length-1].time - remainTime;
+				this.playedTime=playedTime;
 				if(playedTime>=recordData[currentRecordIndex].time/PLAYBACK_SPEED){
 					if(autoPlay)playKey(recordData[currentRecordIndex].keyIndex);
 					currentRecordIndex++;
@@ -428,9 +435,11 @@ window.onload = function () {
 		
 		CAAT.registerKeyListener(
 		function event(e){
-			if(playingRecord&&autoPlay) return;
+			
+
 			if(e.getAction() === "down"){
 				var keyIndex = -1;
+
 				for(var i=0;i<keyData.length;i++){
 					if((e.getKeyCode() == keyData[i].keyCode)&&(e.isShiftPressed() == keyData[i].isShift)){
 						keyIndex = i;
@@ -438,9 +447,19 @@ window.onload = function () {
 					}
 				}
 				if(keyIndex!=-1) {
-					playKey(keyIndex);
-					if(recording){
-						recordData.push({keyIndex: keyIndex, time: scene.time-recordStartTime});
+					if (playingRecord&&autoPlay){	
+						var keyTime=clockActor.playedTime;		
+						for (x in recordData){
+							if (keyTime>recordData[x].time-timePlayOffset&&keyTime<recordData[x].time+timePlayOffset&&recordData[x].keyIndex==keyIndex){
+								Point+=pointBonus;
+								console.log(Point)
+							}
+						}
+					} else {
+						playKey(keyIndex);
+						if(recording){
+							recordData.push({keyIndex: keyIndex, time: scene.time-recordStartTime});
+						}
 					}
 				}
 				
