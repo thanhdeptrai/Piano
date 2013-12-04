@@ -8,9 +8,6 @@
         director: null,
         buttonImage: null,
         iNormal: null,
-        iPress: null,
-        iDisabled: null,
-        iOver: null,
         fn: null,
         dragFn: null,
         upFn:null,
@@ -33,9 +30,9 @@
             this.buttonImage = buttonImage;
             this.setBackgroundImage(buttonImage, true);
             this.iNormal = iNormal || 0;
-            this.iOver = iOver || this.iNormal;
-            this.iPress = iPress || this.iNormal;
-            this.iDisabled = (typeof iDisabled == "undefined")? this.iNormal: iDisabled;
+            if(typeof iOver != "undefined")this.iOver = iOver;
+            if(typeof iPress != "undefined") this.iPress = iPress;
+            if(typeof iDisabled != "undefined") this.iDisabled = iDisabled;
             this.fn = fn;
             this.dragFn = dragFn || function () { };
             this.upFn = upFn || function () { };
@@ -106,7 +103,7 @@
             if (!this.enabled) {
                 return;
             }
-            this.setSpriteIndex(this.iOver);
+            if(typeof this.iOver != "undefined") this.setSpriteIndex(this.iOver);
 			this.enterFn();
         },
 
@@ -119,7 +116,7 @@
             if (!this.enabled) {
                 return;
             }
-            this.setSpriteIndex(this.iNormal);
+            if(typeof this.iOver != "undefined")this.setSpriteIndex(this.iNormal);
         },
         /**
          * Button's tocuh handler.
@@ -197,20 +194,21 @@
 				return;
 			}
             self.isDrag = true;
-            self.setSpriteIndex(self.iPress);
+            if(typeof self.iPress != "undefined")self.setSpriteIndex(self.iPress);
             self.fn(self,ex,ey);
         },
 
         _up: function (self, ex,ey) {
+			self.isDrag = false;
+            if(typeof self.iPress != "undefined")self.setSpriteIndex(self.iNormal);
+            self.upFn(self, ex,ey);
             if (!self.enabled) {
                 return;
             }
 			if (self.scene&&self.scene.isTimePaused) {
 				return;
 			}
-            self.isDrag = false;
-            self.setSpriteIndex(self.iNormal);
-            self.upFn(self, ex,ey);
+            
         },
 
         _drag: function (self, ex,ey) {
