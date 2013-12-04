@@ -22,7 +22,7 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
-	var processed = true;
+	var processed = false;
     windowLoad();
 	function windowLoad(){	
 		CAAT.DEBUG = 1;
@@ -90,17 +90,20 @@ window.onload = function () {
 		CAAT.loop(60);
 	}
     function load() {
+		loadMaxAudio=10;
+		loadAudio = 0;
 		maxSoundIndex = 87;
 		processedSound = 0;
 		MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
 		instrument: "acoustic_grand_piano",
 		callback: function() {
+			loadAudio=loadMaxAudio;
 		}
 		});
 		MIDI.onloadOne = function(){
 			processedSound++;
-			loadedPercent = Math.round((processedSound+loadedImage)/elementLength*100);
+			loadedPercent = Math.round((processedSound+loadAudio+loadedImage)/elementLength*100);
 			if(processedSound == maxSoundIndex) MIDI.onloadAll();
 		}
 		MIDI.onloadAll = function(){
@@ -114,10 +117,9 @@ window.onload = function () {
 			addElement("playButton","img/playButton.png").
 			addElement("stopButton","img/stopButton.png").
 			addElement("deleteButton","img/deleteButton.png").
-			addElement("checkBox","img/checkbox.png").
 			addElement("pauseButton","img/pauseButton.png");
 		
-		var elementLength =imageElement.elements.length+maxSoundIndex;
+		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
 
         imageElement.load(
 		function onAllAssetsLoaded(images) {
@@ -125,7 +127,7 @@ window.onload = function () {
 		},
 		function onEachLoad(index){
 			loadedImage++;
-			loadedPercent = Math.round((processedSound+loadedImage)/elementLength*100);
+			loadedPercent = Math.round((processedSound+loadAudio+loadedImage)/elementLength*100);
 		});
     }
     function run(director,images,audios) {
@@ -261,19 +263,6 @@ window.onload = function () {
 			setLocation(50+buttonSize*3,0).
 			setScaleAnchored(buttonSize/deleteImage.singleHeight,buttonSize/deleteImage.singleWidth,0,0);
 		scene.addChild(deleteButton);
-		
-		var autoPlayImage = new CAAT.SpriteImage().initialize(director.getImage("checkBox"),2,1);
-		var autoPlayButton = new CAAT.Button().initialize(director,autoPlayImage,0,undefined,undefined,undefined,
-		function(){
-			autoPlay = !autoPlay;
-		},
-		function(){},
-		function(){
-			this.setSpriteIndex(autoPlay?0:1);
-		}).
-			setLocation(410,20).
-			setScaleAnchored(24/autoPlayImage.singleWidth,24/autoPlayImage.singleHeight,0,0);
-		scene.addChild(autoPlayButton);
 		
 		var recordImage = new CAAT.SpriteImage().initialize(director.getImage("recordButton"),1,1);
 		var recordButton = new CAAT.Button().initialize(director,recordImage,0,0,0,0,function(){
