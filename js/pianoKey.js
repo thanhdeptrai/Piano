@@ -1,61 +1,80 @@
 ﻿(function () {
-    CAAT.PianoKey = function () {
-        CAAT.PianoKey.superclass.constructor.call(this);
+    CAAT.KeyBoardContainer = function () {
+        CAAT.KeyBoardContainer.superclass.constructor.call(this);
         return this;
     }
 
-    CAAT.PianoKey.prototype = {
-        initialize: function (director, posX, posY, width, height, type, keyIndex) {
+    CAAT.KeyBoardContainer.prototype = {
+        initialize: function (director,keys,posX,posY,width,height) {
             this.director = director;
-            this.setBounds(posX,posY,width,height);
-			this.keyIndex = keyIndex;
-			this.hitting = false;
-			this.type = type;
-			var shadowGradient= director.ctx.createLinearGradient(0,0,0,height);
-			shadowGradient.addColorStop(1,"#666");
-			shadowGradient.addColorStop(0,"#FFF");
-			this.shadow = new CAAT.ActorContainer().
-				setBounds(0,0,width,height).
-				setFillStyle(type=="white"?shadowGradient:"#555").
-				setAlpha(0).
-				enableEvents(false).setVisible(false);
-			this.addChild(this.shadow);
-			this.enableEvents(true);
+			this.keys = keys;
+			this.setBounds(posX,posY,width,height);
             return this;
         },
         paint: function (director,time) {
-			CAAT.PianoKey.superclass.paint.call(this, director, time);
+			CAAT.KeyBoardContainer.superclass.paint.call(this, director, time);
             var ctx = director.ctx;
-			/*
-			ctx.fillStyle = (this.type == "white")?"#FFF":"#000";
-			ctx.fillRect(0,0,this.width,this.height);
-			if(this.type == "white"){
-				ctx.strokeStyle = "#000";
-				ctx.strokeRect(0,0,this.width,this.height);
+			if(!this.painted){
+				this.painted = true;
+				this.startTime = time;
 			}
-			*/
-			var width = this.width;
-            var height = this.height;
-			ctx.fillStyle = (this.type == "white")?"#FFF":"#000";
-			ctx.strokeStyle = "#000";
-			var radius = 5;
-            ctx.beginPath();
-            ctx.moveTo(radius,  0);
-            ctx.lineTo(width - radius, 0);
-            ctx.quadraticCurveTo(width, 0, width, radius);
-            ctx.lineTo(width, height - radius);
-            ctx.quadraticCurveTo(width , height, width - radius, height);
-            ctx.lineTo(radius, height);
-            ctx.quadraticCurveTo(0, height, 0, height - radius);
-            ctx.lineTo(0, radius);
-            ctx.quadraticCurveTo(0, 0, radius, 0);
-			
-            ctx.closePath();
-			ctx.fill();
-			ctx.stroke();
+			if(time<this.startTime+1){
+				for(var i=0;i<this.keys.length;i++) {
+					var key = this.keys[i];
+					var width = key.width;
+					var height = key.height;
+					var x = key.x;
+					var y = key.y;
+					ctx.fillStyle = (key.type == "white")?"#FFF":"#000";
+					ctx.strokeStyle = "#000";
+					var radius = 5;
+					ctx.beginPath();
+					ctx.moveTo(radius+x,  y);
+					ctx.lineTo(width - radius+x, y);
+					ctx.quadraticCurveTo(width+x, y, width+x, radius+y);
+					ctx.lineTo(width+x, height - radius+y);
+					ctx.quadraticCurveTo(width+x , height+y, width - radius+x, height+y);
+					ctx.lineTo(radius+x, height+y);
+					ctx.quadraticCurveTo(x, height+y, x, height - radius+y);
+					ctx.lineTo(x, radius+y);
+					ctx.quadraticCurveTo(x, y, radius+x, y);
+					
+					ctx.closePath();
+					ctx.fill();
+					ctx.stroke();
+				}
+			}
+			else if(!this.cached){
+				this.cached = true;
+				this.cacheAsBitmap(this.startTime,CAAT.Foundation.Actor.CACHE_DEEP);
+			}
             return this;
         },
-		hit: function(){
+		
+    }
+    extend(CAAT.KeyBoardContainer, CAAT.Foundation.ActorContainer);
+})();
+(function (window) {
+	var PianoKey = function (director,keyBoardActor, posX, posY, width, height, type, keyIndex) {
+		this.director = director;
+		this.keyBoardActor = keyBoardActor;
+		this.x = posX;
+		this.y = posY;
+		this.width = width;
+		this.height = height;
+		this.keyIndex = keyIndex;
+		this.hitting = false;
+		this.type = type;
+		var shadowGradient= director.ctx.createLinearGradient(0,0,0,height);
+		shadowGradient.addColorStop(1,"#666");
+		shadowGradient.addColorStop(0,"#FFF");
+		this.shadow = new CAAT.ActorContainer().
+			setBounds(posX,posY,width,height).
+			setFillStyle(type=="white"?shadowGradient:"#555").
+			setAlpha(0).
+			enableEvents(false).setVisible(false);
+		keyBoardActor.addChild(this.shadow);
+		this.hit = function(){
 			var self = this;
 			if(this.hitting){
 				this.shadow.emptyBehaviorList();
@@ -72,6 +91,7 @@
 			this.shadow.setVisible(true);
 			return this;
 		}
-    }
-    extend(CAAT.PianoKey, CAAT.Foundation.ActorContainer);
-})();
+		return this;
+	}
+	window.PianoKey = PianoKey;
+})(window);

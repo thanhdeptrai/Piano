@@ -22,7 +22,7 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
-	var processed = false;
+	var processed = true;
     windowLoad();
 	function windowLoad(){	
 		CAAT.DEBUG = 1;
@@ -180,27 +180,44 @@ window.onload = function () {
 
 		});
 		
-		
+		var keyBoardActor = new CAAT.ActorContainer().setBounds(keyBoardPosX,keyBoardPosY,whiteKeyWidth*whiteKeyLength,whiteKeyHeight);
+		var keyBoardActorWhite = new CAAT.KeyBoardContainer().initialize(director,whiteKey,0,0,whiteKeyWidth*whiteKeyLength,whiteKeyHeight);
+		var keyBoardActorBlack = new CAAT.KeyBoardContainer().initialize(director,blackKey,0,0,whiteKeyWidth*whiteKeyLength,whiteKeyHeight);
+		scene.addChild(keyBoardActor);
+		keyBoardActor.addChild(keyBoardActorWhite);
 		for(var i=0;i<whiteKeyLength;i++){
-			var whiteKeyActor = new CAAT.PianoKey().initialize(director,keyBoardPosX+whiteKeyWidth*i,keyBoardPosY,whiteKeyWidth,whiteKeyHeight,"white",i+blackKeyLength);
-			whiteKeyActor.mouseDown = function(){_down(this);}
-			whiteKeyActor.touchStart = function(){_down(this);}
+			var whiteKeyActor = new PianoKey(director,keyBoardActor,whiteKeyWidth*i,0,whiteKeyWidth,whiteKeyHeight,"white",i+blackKeyLength);
 			whiteKey.push(whiteKeyActor);
-			scene.addChild(whiteKeyActor);
 		}
+		keyBoardActor.addChild(keyBoardActorBlack);
 		var blackKeyIndex = 0;
 		for(var i=0;i<whiteKeyLength-1;i++){
 			if((i%7!=2)&&(i%7!=6)){
-				var blackKeyActor = new CAAT.PianoKey().initialize(director,keyBoardPosX+whiteKeyWidth-blackKeyWidth/2+whiteKeyWidth*i,keyBoardPosY,blackKeyWidth,blackKeyHeight,"black",blackKeyIndex);
-				blackKeyActor.mouseDown = function(){_down(this);}
-				blackKeyActor.touchStart = function(){_down(this);}
+				var blackKeyActor = new PianoKey(director,keyBoardActor,whiteKeyWidth-blackKeyWidth/2+whiteKeyWidth*i,0,blackKeyWidth,blackKeyHeight,"black",blackKeyIndex);
 				blackKey.push(blackKeyActor);
-				scene.addChild(blackKeyActor);
 				blackKeyIndex++;
 			}
 		}
-		_down = function(keyActor){
+		
+		mouseEventActor = new CAAT.ActorContainer().setBounds(keyBoardPosX,keyBoardPosY,whiteKeyWidth*whiteKeyLength,whiteKeyHeight)
+		scene.addChild(mouseEventActor);
+		mouseEventActor.mouseDown = function(e){_down(e.x,e.y)}
+		mouseEventActor.touchStart = function(e){var touch = e.changedTouches[0]; _down(touch.pageX,touch.pageY)}
+		
+		_down = function(ex,ey){
 			if(playingRecord) return;
+			var keyActor;
+			for(var i=0;i<blackKey.length;i++){
+				if((ex>=blackKey[i].x)&&(ex<=blackKey[i].x+blackKey[i].width)&&(ey>=blackKey[i].y)&&(ey<=blackKey[i].y+blackKey[i].height)){
+					keyActor = blackKey[i];
+					break;
+				}
+			}
+			if(!keyActor){
+				var index = (ex/whiteKeyWidth)<<0;
+				keyActor = whiteKey[index];
+			}
+			if(!keyActor) return;
 			playKey(keyActor.keyIndex);
 			if(recording) {
 				recordData.push({keyIndex: keyActor.keyIndex, time: scene.time-recordStartTime});
@@ -386,7 +403,7 @@ window.onload = function () {
 		
 		var timePerScene = 3000;
 		var playbackBoard = new CAAT.ActorContainer().setBounds(0,playbackBoardPoxY,whiteKeyLength*whiteKeyWidth,keyBoardPosY-playbackBoardPoxY);
-		var playbackKey = new CAAT.ActorContainer().setBounds(0,0,whiteKeyLength*whiteKeyWidth,keyBoardPosY-playbackBoardPoxY);
+		var playbackKey = new CAAT.ActorContainer().setBounds(keyBoardPosX,0,whiteKeyLength*whiteKeyWidth,keyBoardPosY-playbackBoardPoxY);
 		var fff = false;
 		playbackKey.paint = function(director,time){
 			var ctx = director.ctx;
@@ -544,6 +561,7 @@ window.onload = function () {
 			if (type=="white") index+=25;
 			Sound.playSfx(index);
 		}
+		
 		console.log("start");
     }
 }
