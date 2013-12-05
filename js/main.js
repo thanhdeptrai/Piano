@@ -140,9 +140,13 @@ window.onload = function () {
 		var whiteKeyLength = 36;
 		var blackKeyLength = 25;
 
-		var timePlayOffset=200;
+		var timePlayOffset=[80,180,330,500];
+		var greatnessText = ["Perfect","Great","Cool","Not bad"];
+		var currentText = "";
 		var Point=0;
-		var pointBonus=100;
+		var pointBonus=[500,300,200,100];
+		var playerKeyData = [];
+		var pointPenalty = 100;
 		
 		var keyBoardPosX = 50;
 		var keyBoardPosY = 450;
@@ -293,6 +297,8 @@ window.onload = function () {
 			if(recording) return;
 
 			if(!playingRecord){
+				playerKeyData = [];
+				Point = 0;
 				if(currentRecordDataIndex != selectingRecord){
 					currentRecordDataIndex = selectingRecord;
 					if(recordDataString[selectingRecord]) recordData = stringToRecordData(recordDataString[selectingRecord]);
@@ -334,6 +340,7 @@ window.onload = function () {
 			setScaleAnchored(buttonSize/stopImage.singleHeight,buttonSize/stopImage.singleWidth,0,0);
 		scene.addChild(stopButton);
 		
+		
 		var clockActor = new CAAT.ActorContainer().setBounds(260,40,10,10);
 		clockActor.timeText="";
 		clockActor.playedTime=0;
@@ -372,6 +379,8 @@ window.onload = function () {
 			ctx.font = "25px Times New Roman";
 			
 			ctx.fillText(this.timeText,0,0);
+			ctx.fillText(Point,200,0);
+			ctx.fillText(currentText,300,0);
 		};
 		scene.addChild(clockActor);
 		
@@ -448,11 +457,44 @@ window.onload = function () {
 				}
 				if(keyIndex!=-1) {
 					if (playingRecord&&autoPlay){	
-						var keyTime=clockActor.playedTime;		
-						for (x in recordData){
-							if (keyTime>recordData[x].time-timePlayOffset&&keyTime<recordData[x].time+timePlayOffset&&recordData[x].keyIndex==keyIndex){
-								Point+=pointBonus;
-								console.log(Point)
+						var keyTime=clockActor.playedTime;
+						var founded  = false;
+						var foundedTime = timePlayOffset[3];
+						var index1;
+						for(var i=currentRecordIndex-1;i>=0;i--){
+							if(keyTime - recordData[i].time > foundedTime) break;
+							if((!playerKeyData[i])&&
+								(recordData[i].keyIndex==keyIndex)){
+								index1 = i;
+								playerKeyData[i] = true;
+								foundedTime = keyTime - recordData[i].time;
+								founded = true;
+								break;
+							}
+						}
+						for(var i=currentRecordIndex;i<recordData.length;i++){
+							if(recordData[i].time - keyTime> foundedTime) break;
+							if((!playerKeyData[i])&&
+								(recordData[i].keyIndex==keyIndex)){
+								playerKeyData[index1] = false;
+								playerKeyData[i] = true;
+								foundedTime = recordData[i].time - keyTime;
+								founded = true;
+								break
+							}
+						}
+						
+						if(!founded){
+							if(Point>=pointPenalty) Point -= pointPenalty;
+							currentText = "Missed";
+						}
+						else{
+							Point+= (timePlayOffset[3] - Math.abs(foundedTime));
+							for(var i=0;i<4;i++){
+								if(foundedTime<timePlayOffset[i]){
+									currentText = greatnessText[i];
+									break;
+								}
 							}
 						}
 					} else {
