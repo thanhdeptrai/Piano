@@ -1,4 +1,9 @@
-Sound = {
+(function () {
+    CAAT.SoundPiano = function () {
+        CAAT.SoundPiano.superclass.constructor.call(this);
+        return this;
+    }
+ CAAT.SoundPiano.prototype  = {
 	initialize: function(audioDescriptor){
 		this.audioDescriptor = audioDescriptor;
 		this.audioObjects =  {};
@@ -73,3 +78,5 @@ Sound = {
 		audio._audioNode[0].volume = (value/100);
 	}
 }
+ extend(CAAT.SoundPiano, CAAT.Foundation.ActorContainer);
+})();

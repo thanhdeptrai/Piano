@@ -22,7 +22,7 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
-	var processed = true;
+	var processed = false;
     windowLoad();
 	function windowLoad(){	
 		CAAT.DEBUG = 1;
@@ -132,7 +132,7 @@ window.onload = function () {
     }
     function run(director,images,audios) {
         director.setImagesCache(images);
-		Sound.initialize(audios);
+		var Sound=new CAAT.SoundPiano().initialize(audios);
 		var scene = director.currentScene;
 		
 		var whiteKey = [];
@@ -186,14 +186,14 @@ window.onload = function () {
 		scene.addChild(keyBoardActor);
 		keyBoardActor.addChild(keyBoardActorWhite);
 		for(var i=0;i<whiteKeyLength;i++){
-			var whiteKeyActor = new PianoKey(director,keyBoardActor,whiteKeyWidth*i,0,whiteKeyWidth,whiteKeyHeight,"white",i+blackKeyLength);
+			var whiteKeyActor = new CAAT.PianoKey().initialize(director,keyBoardActor,whiteKeyWidth*i,0,whiteKeyWidth,whiteKeyHeight,"white",i+blackKeyLength);
 			whiteKey.push(whiteKeyActor);
 		}
 		keyBoardActor.addChild(keyBoardActorBlack);
 		var blackKeyIndex = 0;
 		for(var i=0;i<whiteKeyLength-1;i++){
 			if((i%7!=2)&&(i%7!=6)){
-				var blackKeyActor = new PianoKey(director,keyBoardActor,whiteKeyWidth-blackKeyWidth/2+whiteKeyWidth*i,0,blackKeyWidth,blackKeyHeight,"black",blackKeyIndex);
+				var blackKeyActor = new CAAT.PianoKey().initialize(director,keyBoardActor,whiteKeyWidth-blackKeyWidth/2+whiteKeyWidth*i,0,blackKeyWidth,blackKeyHeight,"black",blackKeyIndex);
 				blackKey.push(blackKeyActor);
 				blackKeyIndex++;
 			}

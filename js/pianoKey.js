@@ -54,8 +54,13 @@
     }
     extend(CAAT.KeyBoardContainer, CAAT.Foundation.ActorContainer);
 })();
-(function (window) {
-	var PianoKey = function (director,keyBoardActor, posX, posY, width, height, type, keyIndex) {
+(function () {
+	CAAT.PianoKey = function () {
+        CAAT.PianoKey.superclass.constructor.call(this);
+        return this;
+    }
+    CAAT.PianoKey.prototype = {
+	initialize : function (director,keyBoardActor, posX, posY, width, height, type, keyIndex) {
 		this.director = director;
 		this.keyBoardActor = keyBoardActor;
 		this.x = posX;
@@ -74,7 +79,10 @@
 			setAlpha(0).
 			enableEvents(false).setVisible(false);
 		keyBoardActor.addChild(this.shadow);
-		this.hit = function(){
+		
+		return this;
+	},
+	hit : function(){
 			var self = this;
 			if(this.hitting){
 				this.shadow.emptyBehaviorList();
@@ -91,7 +99,7 @@
 			this.shadow.setVisible(true);
 			return this;
 		}
-		return this;
 	}
-	window.PianoKey = PianoKey;
-})(window);
+	extend(CAAT.PianoKey, CAAT.Foundation.ActorContainer);
+
+})();
