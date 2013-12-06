@@ -22,7 +22,7 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
-	var processed = true;
+	var processed = false;
     windowLoad();
 	function windowLoad(){	
 		CAAT.DEBUG = 1;
