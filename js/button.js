@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     CAAT.Button = function () {
         CAAT.Button.superclass.constructor.call(this);
         return this;

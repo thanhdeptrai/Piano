@@ -1,4 +1,4 @@
-﻿keyData = [
+keyData = [
 	{
 		index: 0,
 		keyCode: 49,

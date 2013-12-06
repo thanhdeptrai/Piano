@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     CAAT.KeyBoardContainer = function () {
         CAAT.KeyBoardContainer.superclass.constructor.call(this);
         return this;
