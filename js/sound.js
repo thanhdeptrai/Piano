@@ -10,6 +10,7 @@
 		this.sfxChannelId = [];
 		this.musicChannelId;
 		this.sfxLength = 25;
+		return this;
 	},
 	playSfx: function(soundId){
 		var self = this;
@@ -42,8 +43,9 @@
                        
                         var velocity = 127; // how hard the note hits
 
-		MIDI.noteOn(0,soundId, velocity, delay);
-		MIDI.noteOff(0, soundId, delay + 0.75);
+		//MIDI.noteOn(0,soundId, velocity, delay);
+		//MIDI.noteOff(0, soundId, delay + 0.75);
+		return this;
 	},
 	playMusic:function(soundId,endCallback){
 		if(this.musicChannelId) this.audioObjects[this.musicChannelId].stop();
@@ -57,11 +59,12 @@
 		audio.volume(MUSIC_VOLUME/100);
 		audio.play();
 		this.setMusicVolume(MUSIC_VOLUME);
-		
+		return this;
 		
 	},
 	endSound: function(){
 		if(this.musicChannelId) this.audioObjects[this.musicChannelId].stop();
+		return this;
 	},
 	setSfxVolume: function(value){
 		SFX_VOLUME = value;
@@ -70,12 +73,14 @@
 			audio.volume(value/100);
 			audio._audioNode[0].volume = value/100;
 		}
+		return this;
 	},
 	setMusicVolume: function(value){
 		MUSIC_VOLUME = value;
 		var audio = this.audioObjects[this.musicChannelId];
 		audio.volume(value/100);
 		audio._audioNode[0].volume = (value/100);
+		return this;
 	}
 }
  extend(CAAT.SoundPiano, CAAT.Foundation.ActorContainer);
