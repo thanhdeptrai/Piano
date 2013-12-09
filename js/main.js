@@ -343,11 +343,11 @@ window.onload = function () {
 				if(!pausingRecord){
 					pausingRecord = true;
 					playButton.setBackgroundImage(playImage,true);
-					//audio2.pause();
+					audio2.pause();
 				}
 				else{
 					pausingRecord = false;
-					//audio2.play();
+					audio2.play();
 					playButton.setBackgroundImage(pauseImage,true);
 				}
 			}
@@ -364,6 +364,8 @@ window.onload = function () {
 				playButton.setBackgroundImage(playImage,true);
 				playingRecord = false;
 				pausingRecord = false;
+				audio2.pause();
+				audio2.currentTime = 0;
 				pausedStart = 0;
 			}
 		}).
@@ -381,9 +383,18 @@ window.onload = function () {
 				var showTime = time - recordStartTime;
 			}
 			if(playingRecord){
-				var remainTime = recordData[recordData.length-1].time + recordStartTime - ((pausingRecord)?pausedStart:scene.time);
+				//var remainTime = recordData[recordData.length-1].time + recordStartTime - ((pausingRecord)?pausedStart:scene.time);
+				var remainTime = recordData[recordData.length-1].time - audio2.currentTime*1000;
 				var playedTime = recordData[recordData.length-1].time - remainTime;
 				this.playedTime=playedTime;
+				for(var i=currentRecordIndex+1;i<recordData.length;i++){
+					if(playedTime<recordData[i].time) {
+						break;
+					}
+					else{
+						currentRecordIndex++;
+					}
+				}
 				if(playedTime>=recordData[currentRecordIndex].time/PLAYBACK_SPEED){
 					if(autoPlay)playKey(recordData[currentRecordIndex].keyIndex);
 					currentRecordIndex++;
@@ -422,7 +433,7 @@ window.onload = function () {
 		playbackKey.paint = function(director,time){
 			var ctx = director.ctx;
 			if(playingRecord){
-				var playedTime = ((pausingRecord)?pausedStart:time) - recordStartTime;
+				var playedTime = clockActor.playedTime;//((pausingRecord)?pausedStart:time) - recordStartTime;
 				var passedPixel = playedTime/timePerScene*this.height*Math.pow(PLAYBACK_SPEED,2);
 				
 				if(!fff) var start = Date.now();
