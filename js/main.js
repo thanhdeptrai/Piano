@@ -1,5 +1,5 @@
-var CANVAS_WIDTH = 800;
-var CANVAS_HEIGHT  = 600;
+var CANVAS_WIDTH = 640;
+var CANVAS_HEIGHT  = 480;
 var SFX_VOLUME = 100;
 var MUSIC_VOLUME = 100;
 var PLAYBACK_SPEED = 1;
@@ -159,11 +159,11 @@ window.onload = function () {
 		var playerKeyData = [];
 		var pointPenalty = 100;
 		
-		var keyBoardPosX = 50;
-		var keyBoardPosY = 450;
-		var whiteKeyWidth = 20;
+		var keyBoardPosX = 15;
+		var keyBoardPosY = 350;
+		var whiteKeyWidth = 17;
 		var whiteKeyHeight = 120;
-		var blackKeyWidth = 14;
+		var blackKeyWidth = 13;
 		var blackKeyHeight = 70;
 		var playbackBoardPoxY = 100;
 		var backgroundGradient= director.ctx.createLinearGradient(0,0,0,director.height); 
@@ -185,7 +185,7 @@ window.onload = function () {
 				scene.time = pausedStart;
 				pausedStart = 0;
 			}
-			clockActor.update();
+			clockActor.update(scene_time);
 		},
 		function (scene_time, timer_time, timertask_instance) {   // cancel
 
@@ -335,6 +335,7 @@ window.onload = function () {
 					currentRecordIndex = 0;
 					playingRecord = true;
 					recordStartTime = scene.time;
+					
 					audio2.play();
 					playButton.setBackgroundImage(pauseImage,true);
 				}
@@ -375,32 +376,49 @@ window.onload = function () {
 		
 		
 		var clockActor = new CAAT.ActorContainer().setBounds(260,40,10,10);
+		var focusWindow = true;
+		//window.addEventListener("blur",function(){focusWindow = false});
+		//document.addEventListener("visibilitychange",function(){console.log(document.hidden);focusWindow = false});
+		
 		clockActor.timeText="";
 		clockActor.playedTime=0;
-		clockActor.update=function(){
+		clockActor.passedTime = 0;
+		clockActor.update=function(time){
 			if(!recording&&!playingRecord) return;
 			if(recording){
 				var showTime = time - recordStartTime;
 			}
 			if(playingRecord){
+				if(time - recordStartTime - this.passedTime != (audio2.currentTime*1000)<<0){
+					//console.log(time - recordStartTime - this.passedTime);
+					//console.log((audio2.currentTime*1000)<<0);
+					this.passedTime =   ((audio2.currentTime*1000)<<0) - time+recordStartTime;
+				}
+				//console.log(this.passedTime);
 				//var remainTime = recordData[recordData.length-1].time + recordStartTime - ((pausingRecord)?pausedStart:scene.time);
-				var remainTime = recordData[recordData.length-1].time - audio2.currentTime*1000;
+				var remainTime = recordData[recordData.length-1].time - ((audio2.currentTime*1000)<<0);
 				var playedTime = recordData[recordData.length-1].time - remainTime;
 				this.playedTime=playedTime;
-				for(var i=currentRecordIndex+1;i<recordData.length;i++){
-					if(playedTime<recordData[i].time) {
-						break;
-					}
-					else{
-						currentRecordIndex++;
-					}
-				}
+				
 				if(playedTime>=recordData[currentRecordIndex].time/PLAYBACK_SPEED){
 					if(autoPlay)playKey(recordData[currentRecordIndex].keyIndex);
 					currentRecordIndex++;
 					if(currentRecordIndex==recordData.length) {
 						playingRecord = false;
+						this.passedTime = 0;
 						playButton.setBackgroundImage(playImage,true);
+					}
+				}
+				
+				if(!focusWindow){
+					focusWindow = true;
+					for(var i=currentRecordIndex+1;i<recordData.length;i++){
+						if(playedTime<recordData[i].time) {
+							break;
+						}
+						else{
+							currentRecordIndex++;
+						}
 					}
 				}
 				var showTime = remainTime+1000;
@@ -531,6 +549,7 @@ window.onload = function () {
 							currentText = "Missed";
 						}
 						else{
+							foundedTime = foundedTime<<0;
 							Point+= (timePlayOffset[3] - Math.abs(foundedTime));
 							for(var i=0;i<4;i++){
 								if(foundedTime<timePlayOffset[i]){
