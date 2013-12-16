@@ -130,7 +130,8 @@ window.onload = function () {
 			addElement("playButton","img/playButton.png").
 			addElement("stopButton","img/stopButton.png").
 			addElement("deleteButton","img/deleteButton.png").
-			addElement("pauseButton","img/pauseButton.png");
+			addElement("pauseButton","img/pauseButton.png").
+			addElement("fireEff","img/fire.png");
 		
 		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
 
@@ -634,6 +635,10 @@ window.onload = function () {
 									break;
 								}
 							}
+							var currentKey = keyData[keyIndex];
+							var type = currentKey.type;
+							var index = currentKey.index;
+							type == "white"? whiteKey[index].score():blackKey[index].score();
 						}
 					} else {
 						playKey(keyIndex);

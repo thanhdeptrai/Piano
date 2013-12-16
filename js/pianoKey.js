@@ -82,9 +82,22 @@
 			setFillStyle(type=="white"?shadowGradient:"#555").
 			setAlpha(0).
 			enableEvents(false).setVisible(false);
+		var fireEff=new CAAT.Foundation.SpriteImage().initialize(
+                            director.getImage('fireEff'),  1, 5);
+		this.fireEff = new CAAT.ActorContainer().
+			setBounds(posX,posY-64,50,64).
+			setBackgroundImage(fireEff,true).
+			setAnimationImageIndex( [0,1,2,3,4] ).
+			setChangeFPS(50).
+			enableEvents(false).setVisible(false);
 		keyBoardActor.addChild(this.shadow);
+		keyBoardActor.addChild(this.fireEff);
 		
 		return this;
+	},
+	score: function(){
+			this.fireEff.setVisible(true).setFrameTime(this.director.time,300);
+			return this;
 	},
 	hit : function(){
 			var self = this;
