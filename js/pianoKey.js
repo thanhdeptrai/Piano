@@ -42,6 +42,10 @@
 					ctx.closePath();
 					ctx.fill();
 					ctx.stroke();
+					ctx.fillStyle = (key.type == "black")?"#FFF":"#000";
+					var keyString = String.fromCharCode(keyData[key.keyIndex].keyCode);
+					if(key.type == "white") keyString = keyString.toLowerCase();
+					ctx.fillText(keyString,x + width/2 - ctx.measureText(keyString).width/2,y+height-3);
 				}
 			}
 			else if(!this.cached){

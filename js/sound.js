@@ -41,10 +41,10 @@
 		soundId+=36;
 		var delay = 0; // play one note every quarter second
                        
-                        var velocity = 127; // how hard the note hits
+        var velocity = 127; // how hard the note hits
 
-		//MIDI.noteOn(0,soundId, velocity, delay);
-		//MIDI.noteOff(0, soundId, delay + 0.75);
+		MIDI.noteOn(0,soundId, velocity, delay);
+		MIDI.noteOff(0, soundId, delay + 0.75);
 		return this;
 	},
 	playMusic:function(soundId,endCallback){
