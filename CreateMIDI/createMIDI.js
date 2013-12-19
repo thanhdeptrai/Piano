@@ -10,10 +10,38 @@ arr_str->replayData
 (function (window) {
 	var beatsPerMinute = 60000000 / 1000000;
 	var ticksPerBeat=1000;
-var Create=function(musicData){
+	var SheetKey=function(musicData,spd){
+		var speed=(1/spd)||1; 
+		var recordData=stringToRecordData(musicData);
+		var record="";
+		var length=recordData.length;
+		var len1=length-1;
+		for (var i=0;i<length;i++){
+			var currentKey = keyData[recordData[i].noteNum];
+			var key="";
+			if (currentKey.type == "white")
+				key=String.fromCharCode(currentKey.keyCode).toLowerCase();
+			else
+				key=String.fromCharCode(currentKey.keyCode);
+			var time=recordData[i].time;
+			if (i!=len1)
+				if (time==recordData[i+1].time){
+					if (recordData[i].noteNum!=recordData[i+1].noteNum)
+					record+=key;
+				}					
+				else if (recordData[i+1].time-time>500*speed)
+					record +=key +"\n";
+				else
+					record+=key+" ";
+		}
+		return record;
+	}
+	var Create=function(musicData,spd){
 	var recordData=stringToRecordData(musicData);
-	var firtDelay=recordData[0].time;
-	var record =recordDataToTrueNoteNumber(recordData);
+	var speed=(1/spd)||1;
+	var firtDelay=recordData[0].time*speed;
+	
+	var record =recordDataToTrueNoteNumber(recordData,speed);
 	var syncNote=SyncNoteOnAndNoteOff(record,firtDelay);
 	
 	///*
@@ -114,16 +142,28 @@ var SyncNoteOnAndNoteOff=function(record,delay){
 		var tmpNote=record[i][0];
 		var tmpTime=record[i][1];
 		for (var j=i+1;j<length;j++){
-			if (record[j][1]>tmpTime+5000) {
+			 if (record[j][1]){
+			 if (record[j][1]<tmpTime+5000){
+				if(record[j][0]==tmpNote){
+				obj_note2[2]+=record[j][1]-tmpTime-10;
+				arr_note.push(obj_note2);
+				break;
+				}
+			}else{
 				obj_note2[2]+=5000;
 				arr_note.push(obj_note2);
-				break;}
-			else if(record[j][0]==tmpNote){
-				obj_note2[2]+=record[j][1]-tmpTime-10;
+				break;
+			}} else{
+				obj_note2[2]+=5000;
 				arr_note.push(obj_note2);
 				break;
 			}
 		}
+		if (i==length-1) {
+				obj_note2[2]+=3000;
+				arr_note.push(obj_note2);
+				break;
+			}
 		
 	}
 	var length2=arr_note.length-1;
@@ -163,12 +203,12 @@ function stringToRecordData(str){
 			}
 			return outputData;
 }
-function recordDataToTrueNoteNumber(recordData){
+function recordDataToTrueNoteNumber(recordData,speed){
 	var record=[];
 	var length=recordData.length;
 	for (var i=0;i<length;i++){
 		var key=getKeyFromnoteNum(recordData[i].noteNum);
-		var time=recordData[i].time;
+		var time=recordData[i].time*speed;
 		record.push([key,time]);
 	}
 	return record;
@@ -207,4 +247,5 @@ function getKeyFromnoteNum(keyIndex){
 }
 
 window.Create=Create;
+window.SheetKey=SheetKey;
 })(window);
