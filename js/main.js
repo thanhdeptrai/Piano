@@ -12,8 +12,64 @@ var audio2= document.createElement('audio');
 		
 		processed = true;
 		}, false);
-musicList = [];
-musicList[6] = audio2;
+musicList = [
+{
+	name: "My Hit Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hart Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hert Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Heat Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hat Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hear Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Heart Will Go On.",
+	audio:audio2,
+},
+{
+	name: "My Heap Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Heck Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Half Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hag Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Help Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Head Will Go On.",
+	//audio:audio2,
+},
+{
+	name: "My Hex Will Go On.",
+	//audio:audio2,
+},
+]
 musicData = [
 	"33 0,33 300,33 450,33 600,33 750,33 900,33 1200,33 1350,33 1500,33 1650,33 1800,33 2100,33 2250,33 2400,33 2550,33 2700,33 3000,33 3150,33 3300,33 3450,33 3600,33 3900,33 4050,33 4200,33 4350,33 4500,33 4800,33 4950,33 5100,33 5250,33 5400,33 5700,33 5850,33 6000,33 6150,33 6300,33 6600,37 6900,39 7050,33 7200,40 7200,33 7500,40 7500,33 7650,33 7800,40 7800,33 7950,41 7950,4 8100,42 8100,4 8400,42 8400,4 8550,4 8700,42 8700,4 8850,43 8850,32 9000,41 9000,32 9300,41 9300,32 9450,32 9600,40 9600,32 9750,39 9750,33 9900,39 9900,40 10050,33 10200,33 10350,33 10500,37 10500,33 10650,39 10650,33 10800,40 10800,33 11100,40 11100,33 11250,33 11400,40 11400,33 11550,41 11550,29 11700,42 11700,29 12000,42 12000,29 12150,29 12300,42 12300,29 12450,43 12450,32 12600,41 12600,32 12900,41 12900,32 13050,32 13200,40 13200,32 13350,39 13350,33 13500,40 13500,33 13800,33 13950,33 14100,37 14100,33 14250,39 14250,33 14400,40 14400,33 14700,40 14700,33 14850,33 15000,40 15000,33 15150,42 15150,30 15300,43 15300,30 15600,43 15600,30 15750,30 15900,43 15900,30 16050,44 16050,30 16200,14 16200,30 16500,14 16500,30 16650,30 16800,44 16800,30 16950,43 16950,33 17100,44 17100,33 17400,40 17400,33 17550,33 17700,40 17700,33 17850,41 17850,4 18000,42 18000,4 18300,42 18300,4 18450,4 18600,43 18600,4 18750,27 18900,44 18900,40 19050,27 19200,33 19350,33 19500,40 19500,33 19650,42 19650,30 19800,41 19800,30 20100,41 20100,30 20250,30 20400,42 20400,30 20550,40 20550,30 20700,41 20700,30 21000,30 21150,37 21300,39 21450,33 21600,40 21600,33 21900,40 21900,33 22050,33 22200,40 22200,33 22350,41 22350,4 22500,42 22500,4 22800,42 22800,4 22950,4 23100,42 23100,4 23250,43 23250,32 23400,41 23400,32 23700,41 23700,32 23850,32 24000,40 24000,32 24150,39 24150,33 24300,39 24300,40 24450,33 24600,33 24750,33 24900,37 24900,33 25050,39 25050,33 25200,40 25200,33 25500,40 25500,33 25650,33 25800,40 25800,33 25950,41 25950,29 26100,42 26100,29 26400,42 26400,29 26550,29 26700,42 26700,29 26850,43 26850,32 27000,41 27000,32 27300,41 27300,32 27450,32 27600,40 27600,32 27750,39 27750,33 27900,40 27900,33 28200,33 28350,33 28500,37 28500,33 28650,39 28650,33 28800,40 28800,33 29100,40 29100,33 29250,33 29400,40 29400,33 29550,42 29550,30 29700,43 29700,30 30000,43 30000,30 30150,30 30300,43 30300,30 30450,44 30450,30 30600,14 30600,30 30900,14 30900,30 31050,30 31200,44 31200,30 31350,43 31350,33 31500,44 31500,33 31800,40 31800,33 31950,33 32100,40 32100,33 32250,41 32250,4 32400,42 32400,4 32700,42 32700,4 32850,4 33000,43 33000,4 33150,27 33300,44 33300,40 33450,27 33600,33 33750,33 33900,40 33900,33 34050,42 34050,30 34200,41 34200,30 34500,41 34500,30 34650,30 34800,40 34800,30 34950,39 34950,33 35100,40 35100,33 35400,40 35400,32 35700,41 35700,42 36000,40 36000,9 36000,4 36000,42 36300,40 36300,9 36300,4 36300,43 36600,40 36600,9 36600,4 36600,44 36900,10 36900,37 36900,34 36900,30 36900,42 37500,37 37500,34 37500,30 37500,40 37650,37 37650,34 37650,30 37650,37 37800,34 37800,30 37800,14 38700,40 38700,9 38700,35 38700,30 38700,42 39300,9 39300,30 39300,40 39450,9 39450,30 39450,9 39600,35 39600,30 39600,39 40499,9 40499,34 40499,30 40499,40 40948,9 40948,35 40948,30 40948,10 41397,37 41397,34 41397,30 41397,44 42295,42 42295,40 42295,33 42295,44 42595,42 42595,40 42595,33 42595,44 42895,42 42895,40 42895,33 42895,14 43195,42 43195,40 43195,33 43195,44 43345,42 43345,40 43345,33 43345,43 44095,39 44095,36 44095,32 44095,43 44395,39 44395,36 44395,32 44395,43 44695,39 44695,36 44695,32 44695,43 44995,39 44995,36 44995,32 44995,44 45145,40 45145,36 45145,33 45145,44 45895,42 45895,40 45895,33 45895,44 46195,42 46195,40 46195,33 46195,44 46495,42 46495,40 46495,33 46495,14 46795,42 46795,40 46795,33 46795,44 46945,42 46945,40 46945,33 46945,36 47695,33 47695,30 47695,35 47995,32 47995,29 47995,34 48295,31 48295,2 48295,33 48595,30 48595,27 48595,40 49195,41 49345,33 49495,42 49495,37 49795,43 49945,40 50095,44 50095,32 50395,43 50395,36 50695,42 50695,41 50995,41 50995,29 51295,42 51295,35 51595,43 51595,37 51895,44 51895,32 52195,43 52195,34 52495,36 52795,42 52795,43 52945,27 53095,44 53095,33 53395,43 53545,37 53695,42 53695,30 53995,41 53995,37 54295,42 54295,10 54595,41 54595,33 54895,40 54895,37 55195,41 55345,37 55495,39 55495,27 55795,40 55795,33 56095,40 56395,41 56545,33 56695,42 56695,37 56995,41 57145,40 57295,42 57295,32 57595,43 57595,36 57895,42 57895,39 58195,43 58195,33 58495,44 58495,37 58795,43 58795,40 59095,42 59095,40 59395,9 59395,35 59395,4 59395,40 59395,40 59995,41 60145,4 60295,42 60295,35 60595,43 60595,9 60895,44 60895,30 61195,14 61195,36 61495,40 61495,9 61795,43 61795,33 62095,42 62095,37 62395,43 62545,40 62695,41 62695,27 62995,40 62995,37 63295,41 63445,27 63595,39 63595,44 63895,42 63895,40 63895,33 63895,14 64795,40 64795,9 64795,35 64795,44 65695,42 65695,40 65695,33 65695,44 65995,42 65995,40 65995,33 65995,44 66295,42 66295,40 66295,33 66295,44 66595,37 66595,32 66595,43 66745,36 66745,32 66745,43 67495,40 67495,9 67495,36 67495,33 67495,30 67495,42 68395,40 68395,37 68395,33 68395,30 68395,27 68395,41 69295,10 69295,37 69295,30 69295,42 69595,10 69595,37 69595,30 69595,41 69895,10 69895,37 69895,30 69895,40 70195,37 70195,33 70195,27 70195,37 70644,40 70794,42 70944,44 71094,42 71094,40 71094,33 71094,14 71994,40 71994,9 71994,35 71994,44 72894,42 72894,40 72894,33 72894,44 73194,42 73194,40 73194,33 73194,44 73494,42 73494,40 73494,33 73494,44 73794,37 73794,32 73794,43 73944,36 73944,32 73944,43 74694,40 74694,9 74694,36 74694,33 74694,30 74694,42 75594,40 75594,37 75594,33 75594,30 75594,27 75594,41 76494,10 76494,37 76494,30 76494,42 76794,10 76794,37 76794,30 76794,41 77094,10 77094,37 77094,30 77094,40 77394,37 77394,33 77394,27 77394,37 77843,40 77993,42 78143,44 78293,42 78293,40 78293,33 78293,14 79193,40 79193,9 79193,35 79193,44 80093,42 80093,40 80093,33 80093,44 80393,42 80393,40 80393,33 80393,44 80693,42 80693,40 80693,33 80693,44 80993,37 80993,32 80993,43 81143,36 81143,32 81143,43 81893,40 81893,9 81893,36 81893,33 81893,30 81893,42 82793,40 82793,37 82793,33 82793,30 82793,27 82793,41 83693,10 83693,37 83693,30 83693,42 83993,10 83993,37 83993,30 83993,41 84293,10 84293,37 84293,30 84293,40 84593,37 84593,33 84593,27 84593,37 85042,40 85192,42 85342,44 85492,42 85492,40 85492,33 85492,14 86392,40 86392,9 86392,35 86392,44 87292,42 87292,40 87292,33 87292,44 87592,42 87592,40 87592,33 87592,44 87892,42 87892,40 87892,33 87892,44 88192,37 88192,32 88192,43 88342,36 88342,32 88342,43 89092,40 89092,9 89092,36 89092,33 89092,30 89092,42 89992,40 89992,37 89992,33 89992,30 89992,27 89992,41 90892,10 90892,37 90892,30 90892,42 91192,10 91192,37 91192,30 91192,41 91492,10 91492,37 91492,30 91492,40 91792,37 91792,33 91792,27 91792",
 	"36 708,39 917,40 1083,40 1333,32 1333,41 1791,41 2250,36 2666,39 3166,36 4082,39 4291,40 4500,41 4708,29 4958,40 4958,43 5416,43 5792,36 6249,38 6708,36 7541,43 7791,44 8000,45 8125,45 8332,29 8374,46 8750,46 9166,39 9208,41 9292,39 9666,41 10125,47 10583,47 10957,48 10999,47 11291,46 11541,45 11834,27 11875,36 12333,38 12791,36 13250,27 13710,46 14165,45 14625,43 15083,35 15500,43 15541,44 16000,44 16458,39 16875,42 17333,39 18458,43 18666,42 18833,42 19041,27 19041,43 19541,43 19958,36 20458,38 20875,36 22041,39 22293,40 22500,41 22750,33 22750,42 23208,40 23583,37 23625,42 23625,37 24166,40 24625",
@@ -126,11 +182,12 @@ window.onload = function () {
 			MIDI.onloadAll();
 		}
         var imageElement = new CAAT.Module.Preloader.Preloader().
-			addElement("recordButton","img/recordButton.png").
-			addElement("playButton","img/playButton.png").
-			addElement("stopButton","img/stopButton.png").
-			addElement("deleteButton","img/deleteButton.png").
-			addElement("pauseButton","img/pauseButton.png").
+			addElement("recordButton","img/menu/record.png").
+			addElement("playButton","img/menu/play.png").
+			addElement("stopButton","img/menu/stop.png").
+			//addElement("deleteButton","img/deleteButton.png").
+			addElement("pauseButton","img/menu/pause.png").
+			addElement("playlistButton","img/menu/playlist.png").
 			addElement("fireEff","img/fire.png");
 		
 		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
@@ -146,7 +203,7 @@ window.onload = function () {
     }
     function run(director,images,audios) {
         director.setImagesCache(images);
-		var Sound=new CAAT.SoundPiano().initialize(audios);console.log(Sound)
+		var Sound=new CAAT.SoundPiano().initialize(audios);
 		var scene = director.currentScene;
 		
 		var whiteKey = [];
@@ -155,7 +212,7 @@ window.onload = function () {
 		var blackKeyLength = 25;
 
 		var timePlayOffset=[80,180,330,500];
-		var greatnessText = ["Perfect","Great","Cool","Not bad"];
+		var greatnessText = ["Perfect","Great","Cool","Not bad","Missed","Passed"];
 		var statisticList = [0,0,0,0,0,0];
 		var PERFECT_NUMBER = 0;
 		var GREAT_NUMBER = 1;
@@ -198,8 +255,12 @@ window.onload = function () {
 			clockActor.update(scene_time);
 		},
 		function (scene_time, timer_time, timertask_instance) {   // cancel
-
+		
 		});
+		
+		menuWidth = 60;
+		menuPosX = CANVAS_WIDTH - menuWidth;
+		var menuContainer = new CAAT.MenuContainer().initialize(director,musicList,menuPosX,0,menuWidth,CANVAS_HEIGHT);
 		
 		var keyBoardActor = new CAAT.ActorContainer().setBounds(keyBoardPosX,keyBoardPosY,whiteKeyWidth*whiteKeyLength,whiteKeyHeight);
 		var keyBoardActorWhite = new CAAT.KeyBoardContainer().initialize(director,whiteKey,0,0,whiteKeyWidth*whiteKeyLength,whiteKeyHeight);
@@ -262,7 +323,7 @@ window.onload = function () {
 		var recordDataString = [];
 		var selectingRecord = 0;
 		var currentRecordIndex = 0;
-		var buttonSize = 50;
+		
 		
 		var recordListButtons = [];
 		var maxRecord = 20;
@@ -283,13 +344,8 @@ window.onload = function () {
 			var ctx = director.ctx;
 			ctx.fillStyle = "#0FF";
 			ctx.font = "25px Times New Roman";
-			ctx.fillText("PERFECT",0,25);
-			ctx.fillText("GREAT",0,50);
-			ctx.fillText("COOL",0,75);
-			ctx.fillText("NOT BAD",0,100);
-			ctx.fillText("MISSED",0,125);
-			ctx.fillText("PASSED",0,150);
 			for(var i=0;i<statisticList.length;i++){
+				ctx.fillText(greatnessText[i].toUpperCase(),0,25*(i+1));
 				ctx.fillText(":  "+statisticList[i],120,25*(i+1));
 			}
 		}
@@ -299,7 +355,7 @@ window.onload = function () {
 			var index = recordListButtons.length;
 			var width = (index>9)?30:20;
 			var space = (index>9)?35*(index-10)+25*10:25*index;
-			var button = new CAAT.ActorContainer().setBounds(keyBoardPosX+space,buttonSize,width,25);
+			var button = new CAAT.ActorContainer().setBounds(keyBoardPosX+space,20,width,25);
 			selectingRecord = index;
 			currentRecordDataIndex = index;
 			button.index = index;
@@ -319,6 +375,7 @@ window.onload = function () {
 			recordListButtons.push(button);
 			scene.addChild(button);
 		}
+		/*
 		var deleteImage = new CAAT.SpriteImage().initialize(director.getImage("deleteButton"),1,1);
 		var deleteButton = new CAAT.Button().initialize(director,deleteImage,0,0,0,0,function(){
 			scene.removeChild(recordListButtons[selectingRecord]);
@@ -334,9 +391,15 @@ window.onload = function () {
 			setLocation(50+buttonSize*3,0).
 			setScaleAnchored(buttonSize/deleteImage.singleHeight,buttonSize/deleteImage.singleWidth,0,0);
 		scene.addChild(deleteButton);
+		*/
 		
-		var recordImage = new CAAT.SpriteImage().initialize(director.getImage("recordButton"),1,1);
-		var recordButton = new CAAT.Button().initialize(director,recordImage,0,0,0,0,function(){
+		var recordImage = new CAAT.SpriteImage().initialize(director.getImage("recordButton"),1,3);
+		
+		var buttonSize = recordImage.singleHeight;
+		var buttonX = menuWidth/2 - buttonSize/2;
+		var buttonYStart = CANVAS_HEIGHT/3;
+		var buttonYDelta = buttonSize*5/4;
+		var recordButton = new CAAT.Button().initialize(director,recordImage,0,1,2,0,function(){
 			showStatistic = false;
 			if(playingRecord) {
 				return;
@@ -355,13 +418,13 @@ window.onload = function () {
 				console.log(recordDataString[recordDataString.length-1]);
 			}
 		}).
-			setLocation(50,0).
-			setScaleAnchored(buttonSize/recordImage.singleHeight,buttonSize/recordImage.singleWidth,0,0);
-		scene.addChild(recordButton);
+			setLocation(buttonX,buttonYStart+buttonYDelta);
+			//setScaleAnchored(buttonSize/recordImage.singleHeight,buttonSize/recordImage.singleWidth,0,0);
+		menuContainer.addChild(recordButton);
 		
-		var playImage = new CAAT.SpriteImage().initialize(director.getImage("playButton"),1,1);
-		var pauseImage = new CAAT.SpriteImage().initialize(director.getImage("pauseButton"),1,1);
-		var playButton = new CAAT.Button().initialize(director,playImage,0,0,0,0,function(){
+		var playImage = new CAAT.SpriteImage().initialize(director.getImage("playButton"),1,3);
+		var pauseImage = new CAAT.SpriteImage().initialize(director.getImage("pauseButton"),1,3);
+		var playButton = new CAAT.Button().initialize(director,playImage,0,1,2,0,function(){
 			showStatistic = false;
 			if(recording) return;
 			
@@ -378,7 +441,8 @@ window.onload = function () {
 					playingRecord = true;
 					recordStartTime = scene.time;
 					if(enablePlayFile){
-						playingAudio = musicList[selectingRecord];
+						if(musicList[selectingRecord]) playingAudio = musicList[selectingRecord].audio;
+						else playingAudio = undefined;
 						if(playingAudio){
 							playingAudio.play();
 							playFile = true;
@@ -404,12 +468,12 @@ window.onload = function () {
 				}
 			}
 		}).
-			setLocation(50+buttonSize,0).
-			setScaleAnchored(buttonSize/playImage.singleHeight,buttonSize/playImage.singleWidth,0,0);
-		scene.addChild(playButton);
+			setLocation(buttonX,buttonYStart-buttonYDelta);
+			//setScaleAnchored(buttonSize/playImage.singleHeight,buttonSize/playImage.singleWidth,0,0);
+		menuContainer.addChild(playButton);
 		
-		var stopImage = new CAAT.SpriteImage().initialize(director.getImage("stopButton"),1,1);
-		var stopButton = new CAAT.Button().initialize(director,stopImage,0,0,0,0,function(){
+		var stopImage = new CAAT.SpriteImage().initialize(director.getImage("stopButton"),1,3);
+		var stopButton = new CAAT.Button().initialize(director,stopImage,0,1,2,0,function(){
 			if(recording) return;
 			if(playingRecord) {
 				currentRecordIndex = 0;
@@ -423,9 +487,9 @@ window.onload = function () {
 				pausedStart = 0;
 			}
 		}).
-			setLocation(50+buttonSize*2,0).
-			setScaleAnchored(buttonSize/stopImage.singleHeight,buttonSize/stopImage.singleWidth,0,0);
-		scene.addChild(stopButton);
+			setLocation(buttonX,buttonYStart);
+			//setScaleAnchored(buttonSize/stopImage.singleHeight,buttonSize/stopImage.singleWidth,0,0);
+		menuContainer.addChild(stopButton);
 		
 		
 		var clockActor = new CAAT.ActorContainer().setBounds(260,40,10,10);
@@ -502,6 +566,7 @@ window.onload = function () {
 				
 				for(var i=currentRecordIndex;i<recordData.length;i++){
 					var currentKey = keyData[recordData[i].keyIndex];
+					if(playerKeyData[i]) continue;
 					if(recordData[i].time>(playedTime+timePerScene)/Math.sqrt(PLAYBACK_SPEED)) break;
 					var hitKeyActor;
 					ctx.font = "20px Times New Roman";
@@ -533,6 +598,7 @@ window.onload = function () {
 		}
 		playbackBoard.addChild(playbackKey);
 		scene.addChild(playbackBoard);
+		scene.setZOrder(playbackBoard,2)
 		
 		var hintActor = new CAAT.ActorContainer().setBounds(keyBoardPosX,keyBoardPosY+whiteKeyHeight,whiteKeyWidth*whiteKeyLength,10);
 		hintActor.paint = function(director,time){
@@ -570,7 +636,7 @@ window.onload = function () {
 		}
 		scene.addChild(showKeyActor);
 		
-		
+		scene.addChild(menuContainer);
 		
 		CAAT.registerKeyListener(
 		function event(e){
@@ -578,7 +644,6 @@ window.onload = function () {
 
 			if(e.getAction() === "down"){
 				var keyIndex = -1;
-
 				for(var i=0;i<keyData.length;i++){
 					if((e.getKeyCode() == keyData[i].keyCode)&&(e.isShiftPressed() == keyData[i].isShift)){
 						keyIndex = i;
@@ -617,7 +682,7 @@ window.onload = function () {
 						
 						if(!founded){
 							if(Point>=pointPenalty) Point -= pointPenalty;
-							currentText = "Missed";
+							currentText = greatnessText[MISS_NUMBER];
 							statisticList[MISS_NUMBER]++;
 						}
 						else{
@@ -627,10 +692,22 @@ window.onload = function () {
 								if(foundedTime<timePlayOffset[i]){
 									currentText = greatnessText[i];
 									switch(i){
-										case PERFECT_NUMBER: statisticList[PERFECT_NUMBER]++; break;
-										case GREAT_NUMBER: statisticList[GREAT_NUMBER]++; break;
-										case COOL_NUMBER: statisticList[COOL_NUMBER]++; break;
-										case NOTBAD_NUMBER: statisticList[NOTBAD_NUMBER]++; break;
+										case PERFECT_NUMBER: 
+											currentText = greatnessText[PERFECT_NUMBER];
+											statisticList[PERFECT_NUMBER]++; 
+											break;
+										case GREAT_NUMBER: 
+											currentText = greatnessText[GREAT_NUMBER];
+											statisticList[GREAT_NUMBER]++; 
+											break;
+										case COOL_NUMBER: 
+											currentText = greatnessText[COOL_NUMBER];
+											statisticList[COOL_NUMBER]++; 
+											break;
+										case NOTBAD_NUMBER: 
+											currentText = greatnessText[NOTBAD_NUMBER];
+											statisticList[NOTBAD_NUMBER]++; 
+											break;
 									}
 									break;
 								}
@@ -638,7 +715,7 @@ window.onload = function () {
 							var currentKey = keyData[keyIndex];
 							var type = currentKey.type;
 							var index = currentKey.index;
-							type == "white"? whiteKey[index].score():blackKey[index].score();
+							type == "white"? whiteKey[index].score(scene.time):blackKey[index].score(scene.time);
 						}
 					} else {
 						playKey(keyIndex);

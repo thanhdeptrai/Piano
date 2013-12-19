@@ -14625,12 +14625,12 @@ CAAT.Module( {
                 return this.action;
             };
 
-            this.modifiers= function() {
+            this.getModifiers= function() {
                 return this.modifiers;
             };
 
             this.isShiftPressed= function() {
-                return modifiers.shift;
+                return this.modifiers.shift;
             };
 
             this.isControlPressed= function() {

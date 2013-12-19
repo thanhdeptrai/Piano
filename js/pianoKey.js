@@ -1,4 +1,119 @@
-﻿(function () {
+﻿
+(function () {
+    CAAT.SettingContainer = function () {
+        CAAT.SettingContainer.superclass.constructor.call(this);
+        return this;
+    }
+
+    CAAT.SettingContainer.prototype = {
+        initialize: function (director,posX,posY,width,height) {
+            this.director = director;
+			this.setBounds(posX,posY,width,height);
+            return this;
+        },
+        paint: function (director,time) {
+			CAAT.SettingContainer.superclass.paint.call(this, director, time);
+            var ctx = director.ctx;
+			
+            return this;
+        },
+		
+    }
+    extend(CAAT.SettingContainer, CAAT.Foundation.ActorContainer);
+})();
+
+(function () {
+    CAAT.PlayListContainer = function () {
+        CAAT.PlayListContainer.superclass.constructor.call(this);
+        return this;
+    }
+
+    CAAT.PlayListContainer.prototype = {
+        initialize: function (menuContainer,posX,posY,width,height) {
+            this.director = menuContainer.director;
+			this.menuContainer = menuContainer;
+			this.setBounds(posX,posY,width,height);
+            return this;
+        },
+        paint: function (director,time) {
+			CAAT.PlayListContainer.superclass.paint.call(this, director, time);
+            var ctx = director.ctx;
+			
+            return this;
+        },
+		mouseDown: function(e){
+			var self = this;
+			console.log(e.x+" "+e.y);
+			var path= new CAAT.PathUtil.LinearPath().
+				setInitialPosition(this.x,this.y).
+				setFinalPosition(this.director.x,0);
+			var pathBehavior= new CAAT.PathBehavior().setPath(path).setFrameTime(self.time,569).
+			addListener({
+				behaviorExpired: function(director,time){
+					self.emptyBehaviorList();
+				}
+			});
+			self.addBehavior(pathBehavior);
+		}
+		
+    }
+    extend(CAAT.PlayListContainer, CAAT.Foundation.ActorContainer);
+})();
+(function () {
+    CAAT.MenuContainer = function () {
+        CAAT.MenuContainer.superclass.constructor.call(this);
+        return this;
+    }
+
+    CAAT.MenuContainer.prototype = {
+        initialize: function (director,playList,posX,posY,width,height) {
+			var self = this;
+            this.director = director;
+			this.setBounds(posX,posY,width,height);
+			this.playList = playList;
+			this.listNumber = playList.length;
+			this.nameList = [];
+			this.audioIdList = [];
+			for(var i =0;i<playList.length;i++){
+				this.nameList.push(playList[i].name);
+				this.audioIdList.push(playList[i].audio);
+			}
+			this.setFillStyle("#9b2929");
+			this.marginLeft = 5;
+			this.lineHeight = 20;
+			this.inAnimation = false;
+			var playListButton = new CAAT.ActorContainer().setBounds(0,0,width,width).setFillStyle("#F0F");
+			playListButton.mouseDown = function(e){
+				if(self.inAnimation) return;
+				self.inAnimation = true;
+				self.playListContainer = new CAAT.PlayListContainer().initialize(self,-self.x+director.width/2,0,director.width/2,self.height).setFillStyle("#A00");
+				var path= new CAAT.PathUtil.LinearPath().
+					setInitialPosition(director.width-self.x,0).
+					setFinalPosition(self.playListContainer.x,self.playListContainer.y);
+				var pathBehavior= new CAAT.PathBehavior().setPath( path ).setFrameTime(self.time,569).
+				addListener({
+					behaviorExpired: function(director,time){
+						self.inAnimation = false;
+						self.playListContainer.emptyBehaviorList();
+					}
+				});
+				self.playListContainer.addBehavior(pathBehavior);
+				self.addChild(self.playListContainer);
+			}
+			this.playListButton = playListButton;
+			this.addChild(playListButton);
+            return this;
+        },
+        paint: function (director,time) {
+			CAAT.MenuContainer.superclass.paint.call(this, director, time);
+            var ctx = director.ctx;
+
+            return this;
+        },
+    }
+    extend(CAAT.MenuContainer, CAAT.Foundation.ActorContainer);
+})();
+(function () {
     CAAT.KeyBoardContainer = function () {
         CAAT.KeyBoardContainer.superclass.constructor.call(this);
         return this;
@@ -95,9 +210,9 @@
 		
 		return this;
 	},
-	score: function(){
-			this.fireEff.setVisible(true).setFrameTime(this.director.time,300);
-			return this;
+	score: function(time){
+		this.fireEff.setVisible(true).setFrameTime(time,300);
+		return this;
 	},
 	hit : function(){
 			var self = this;

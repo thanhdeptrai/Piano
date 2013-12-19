@@ -44,7 +44,7 @@
         var velocity = 127; // how hard the note hits
 
 		MIDI.noteOn(0,soundId, velocity, delay);
-		MIDI.noteOff(0, soundId, delay + 0.75);
+		MIDI.noteOff(0, soundId, delay + 5);
 		return this;
 	},
 	playMusic:function(soundId,endCallback){
