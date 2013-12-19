@@ -209,7 +209,7 @@
 				return;
 			}
             self.isDrag = false;
-            self.setSpriteIndex(self.iNormal);
+            self.setSpriteIndex(self.iOver);
             self.upFn(self, ex,ey);
         },
 

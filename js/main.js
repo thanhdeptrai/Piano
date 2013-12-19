@@ -5,13 +5,13 @@ var MUSIC_VOLUME = 100;
 var PLAYBACK_SPEED = 1;
 var audio2= document.createElement('audio');
 		audio2.type='audio/ogg';
-		audio2.src = "My Heart Will Go On.ogg"; 
+		audio2.src = "musicList/My Heart Will Go On.ogg"; 
 		audio3= document.createElement('audio');
 		audio3.type='audio/ogg';
-		audio3.src = "we_wish_you_a_merry_christmas_easy.ogg";
+		audio3.src = "musicList/we_wish_you_a_merry_christmas_easy.ogg";
 		audio9= document.createElement('audio');
 		audio9.type='audio/ogg';
-		audio9.src = "jingbell.ogg";
+		audio9.src = "musicList/jingbell.ogg";
 		//audio2.appendChild(audg);
 		audio2.addEventListener("canplaythrough", function () {
 		
@@ -107,7 +107,7 @@ window.onload = function () {
 	var loadedAudio = 0;
 	var loadedPercent = 0;
 	var loadAudios,loadImages;
-	var processed = false;
+	var processed = true;
     windowLoad();
 	function windowLoad(){	
 		CAAT.DEBUG = 1;
@@ -206,6 +206,9 @@ window.onload = function () {
 			//addElement("deleteButton","img/deleteButton.png").
 			addElement("pauseButton","img/menu/pause.png").
 			addElement("playlistButton","img/menu/playlist.png").
+			addElement("santa","img/santa.png").
+			addElement("blackgiftbox","img/blackgiftbox.png").
+			addElement("giftbox","img/giftbox.png").
 			addElement("fireEff","img/fire.png");
 		
 		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
@@ -588,13 +591,15 @@ window.onload = function () {
 					if(recordData[i].time>(playedTime+timePerScene)/Math.sqrt(PLAYBACK_SPEED)) break;
 					var hitKeyActor;
 					ctx.font = "20px Times New Roman";
+					var giftboxSize =24;
 					if(currentKey.type == "white"){
 						hitKeyActor = whiteKey[currentKey.index];
 						ctx.fillStyle = "#FFF";
 						ctx.strokeStyle = "#000";
 						var posY = this.height + passedPixel -hitKeyActor.width - recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED;
-						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
-						ctx.strokeRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						//ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						//ctx.strokeRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						ctx.drawImage(director.getImage("giftbox"),hitKeyActor.x-hitKeyActor.width/3,posY-hitKeyActor.width/3,giftboxSize,giftboxSize);
 						ctx.fillStyle = "#000";
 						ctx.fillText(String.fromCharCode(currentKey.keyCode).toLowerCase(),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					} 
@@ -602,7 +607,7 @@ window.onload = function () {
 						hitKeyActor = blackKey[currentKey.index];
 						ctx.fillStyle = "#000";
 						var posY = this.height + passedPixel - hitKeyActor.width-recordData[i].time/timePerScene*this.height*PLAYBACK_SPEED;
-						ctx.fillRect(hitKeyActor.x,posY,hitKeyActor.width,hitKeyActor.width);
+						ctx.drawImage(director.getImage("blackgiftbox"),hitKeyActor.x-hitKeyActor.width/3,posY-hitKeyActor.width/3,giftboxSize,giftboxSize);
 						ctx.fillStyle = "#FFF";
 						ctx.fillText(String.fromCharCode(currentKey.keyCode),hitKeyActor.x+2,hitKeyActor.width+posY-2);
 					}
@@ -653,6 +658,12 @@ window.onload = function () {
 			ctx.fillText(keyString,0,0);
 		}
 		scene.addChild(showKeyActor);
+		
+		var santaImage = director.getImage("santa");
+		var santaActor = new CAAT.ActorContainer().
+								setBackgroundImage(santaImage).
+								setBounds(CANVAS_WIDTH-menuWidth-santaImage.width,0,santaImage.width,santaImage.height);
+		scene.addChild(santaActor);
 		
 		scene.addChild(menuContainer);
 		

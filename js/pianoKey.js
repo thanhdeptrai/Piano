@@ -42,12 +42,13 @@
             return this;
         },
 		mouseDown: function(e){
+			CAAT.PlayListContainer.superclass.mouseDown.call(this,e);
 			var self = this;
 			console.log(e.x+" "+e.y);
 			var path= new CAAT.PathUtil.LinearPath().
 				setInitialPosition(this.x,this.y).
-				setFinalPosition(this.director.x,0);
-			var pathBehavior= new CAAT.PathBehavior().setPath(path).setFrameTime(self.time,569).
+				setFinalPosition(this.director.width,0);
+			var pathBehavior= new CAAT.PathBehavior().setPath(path).setFrameTime(self.time,369).
 			addListener({
 				behaviorExpired: function(director,time){
 					self.emptyBehaviorList();
@@ -82,24 +83,32 @@
 			this.marginLeft = 5;
 			this.lineHeight = 20;
 			this.inAnimation = false;
-			var playListButton = new CAAT.ActorContainer().setBounds(0,0,width,width).setFillStyle("#F0F");
-			playListButton.mouseDown = function(e){
+			var playListImage =  new CAAT.SpriteImage().initialize(director.getImage("recordButton"),1,3);
+			var playListButton = new CAAT.Button().initialize(director,playListImage,0,1,2,0,
+			function(e){
 				if(self.inAnimation) return;
+				
 				self.inAnimation = true;
-				self.playListContainer = new CAAT.PlayListContainer().initialize(self,-self.x+director.width/2,0,director.width/2,self.height).setFillStyle("#A00");
+				if(!self.firstTime)self.playListContainer = new CAAT.PlayListContainer().initialize(self,director.width/2,self.y,director.width/2,self.height).setFillStyle(self.fillStyle);
+				else self.playListContainer.setLocation(director.width/2,self.y);
 				var path= new CAAT.PathUtil.LinearPath().
-					setInitialPosition(director.width-self.x,0).
+					setInitialPosition(director.width,0).
 					setFinalPosition(self.playListContainer.x,self.playListContainer.y);
-				var pathBehavior= new CAAT.PathBehavior().setPath( path ).setFrameTime(self.time,569).
+				var pathBehavior= new CAAT.PathBehavior().setPath( path ).setFrameTime(self.time,369).
 				addListener({
 					behaviorExpired: function(director,time){
 						self.inAnimation = false;
-						self.playListContainer.emptyBehaviorList();
+						//self.playListContainer.setBounds(self.playListContainer.x,self.playListContainer.y,self.playListContainer.width,self.playListContainer.height);
+						//self.playListContainer.emptyBehaviorList();
 					}
 				});
 				self.playListContainer.addBehavior(pathBehavior);
-				self.addChild(self.playListContainer);
-			}
+				if(!self.firstTime){
+					self.director.currentScene.addChild(self.playListContainer);
+					self.firstTime = true;
+				}
+			}).setLocation(this.width/2 - playListImage.singleWidth);
+			
 			this.playListButton = playListButton;
 			this.addChild(playListButton);
             return this;
