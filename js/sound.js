@@ -68,13 +68,16 @@
 			audio.addEventListener("canplay", function(){
 				console.log("audio start");
 				if(canplayCallback) canplayCallback();
+			
 				if(!justLoad){
 					audio.volume=(SFX_VOLUME/100);
 					audio.play();
 				}
 			});
+			this.audioMusic = audio;
 		}
 		else{
+			this.audioMusic = audio;
 			if(canplayCallback) canplayCallback();
 			if(!justLoad){
 				audio.volume=(SFX_VOLUME/100);
@@ -86,7 +89,6 @@
 			self.musicChannelId = undefined;
 		});
 		
-		this.audioMusic = audio;
 	},
 	endMusic: function(){
 		if(this.musicChannelId){
@@ -99,8 +101,7 @@
 		SFX_VOLUME = value;
 		for(var i=0;i<this.sfxChannelId.length;i++){
 			var audio = this.audioObjects[this.sfxChannelId[i]];
-			audio.volume(value/100);
-			audio._audioNode[0].volume = value/100;
+			audio.volume=value/100;
 		}
 		return this;
 	},

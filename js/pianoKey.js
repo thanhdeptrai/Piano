@@ -206,6 +206,7 @@
 			self.addBehavior(pathBehavior);
 			if(type == 1){
 				SELECTING_RECORD = this.currentRecord;
+				DIFFICULTY = this.currentDifficulty;
 			}
 		},
 		mouseDown: function(e){
@@ -270,6 +271,7 @@
 					self.playListContainer.enableEvents(true);
 				}
 				self.playListContainer.currentRecord = SELECTING_RECORD;
+				self.playListContainer.currentDifficulty = DIFFICULTY;
 				var path= new CAAT.PathUtil.LinearPath().
 					setInitialPosition(director.width,self.y).
 					setFinalPosition(self.playListContainer.x,self.playListContainer.y);

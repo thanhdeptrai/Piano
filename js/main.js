@@ -177,6 +177,20 @@ window.onload = function () {
 			addElement("santa","img/santa.png").
 			addElement("blackgiftbox","img/hello_b_1.png").
 			addElement("giftbox","img/hello_w_1.png").
+			addElement("keyboard","img/keyboard.png").
+			addElement("statBg","img/statistic/result_bg.png").
+			addElement("statPerfect","img/statistic/perfect.png").
+			addElement("statGreat","img/statistic/great.png").
+			addElement("statCool","img/statistic/cool.png").
+			addElement("statNotbad","img/statistic/notbad.png").
+			addElement("statMissed","img/statistic/missed.png").
+			addElement("statPassed","img/statistic/passed.png").
+			addElement("statTotal","img/statistic/total.png").
+			addElement("multiplier","img/statistic/multiplier.png").
+			addElement("equal","img/statistic/equal.png").
+			addElement("lineBreak","img/statistic/line_break.png").
+			addElement("facebookIcon","img/statistic/facebook.png").
+			addElement("likeIcon","img/statistic/like.png").
 			addElement("fireEff","img/fire.png");
 		
 		var elementLength =imageElement.elements.length+loadMaxAudio+maxSoundIndex;
@@ -260,6 +274,16 @@ window.onload = function () {
 					playingAudio.currentTime = 0;
 					playingAudio.pause();
 				}
+			}
+			if(PLAYING_RECORD&&(!PAUSING_RECORD)){
+				if(santaActor.noAnimation){
+					santaActor.noAnimation = false;
+					santaActor.setAnimationImageIndex([0,1,2,3]);
+				}
+			}
+			else if(!santaActor.noAnimation){
+				santaActor.noAnimation = true;
+				santaActor.setAnimationImageIndex([0]);
 			}
 			clockActor.update(scene_time);
 		},
@@ -348,16 +372,62 @@ window.onload = function () {
 			if(Point<0) Point = 0;
 			if(Point>pointData[SELECTING_RECORD][DIFFICULTY]) pointData[SELECTING_RECORD][DIFFICULTY] = Point;
 		}
-		var statisticActor = new CAAT.ActorContainer().setBounds(CANVAS_WIDTH/2-100,CANVAS_HEIGHT/2-100,200,200);
+		var statBg = director.getImage("statBg");
+		var statPerfect = director.getImage("statPerfect");
+		var statGreat = director.getImage("statGreat");
+		var statCool = director.getImage("statCool");
+		var statNotbad = director.getImage("statNotbad");
+		var statMissed = director.getImage("statMissed");
+		var statPassed = director.getImage("statPassed");
+		var statTotal = director.getImage("statTotal");
+		var multiplierImage = director.getImage("multiplier");
+		var equalImage = director.getImage("equal");
+		var keyBoardImage = director.getImage("keyboard");
+		var lineBreakImage = director.getImage("lineBreak");
+		var facebookIcon = director.getImage("facebookIcon");
+		var likeIcon = director.getImage("likeIcon");
+		var statisticActor = new CAAT.ActorContainer().setBounds(CANVAS_WIDTH/2-statBg.width/2,CANVAS_HEIGHT/2-statBg.height/2,statBg.width,statBg.height);
+		//statisticActor.setLocation(-140,-100);
 		statisticActor.paint = function(director,time){
-			if(!showStatistic) return;
+			//if(!showStatistic) return;
 			var ctx = director.ctx;
-			ctx.fillStyle = "#0FF";
-			ctx.font = "25px Times New Roman";
-			for(var i=0;i<statisticList.length;i++){
-				ctx.fillText(greatnessText[i].toUpperCase(),0,25*(i+1));
-				ctx.fillText(":  "+statisticList[i],120,25*(i+1));
+			if(!showStatistic)ctx.globalAlpha = 0.5;
+			ctx.drawImage(statBg,0,0);
+			ctx.drawImage(statPerfect,40,120);
+			ctx.drawImage(statGreat,50,160);
+			ctx.drawImage(statCool,60,200);
+			ctx.drawImage(statNotbad,30,240);
+			ctx.drawImage(statMissed,40,280);
+			ctx.drawImage(statPassed,40,320);
+			ctx.drawImage(statTotal,40,370);
+			var maxLength = 1;
+			for(var i=0;i<statisticList.length;i++) {
+				var tempStr = statisticList[i]+"";
+				if(tempStr.length>maxLength) maxLength = tempStr.length;
+				for(var j=0;j<tempStr.length;j++){
+					ctx.drawImage(keyBoardImage, (tempStr[j]<<0) * 30, 0, 30, 30, 160 + j*18, 120+40*i, 30, 30);
+				}	
 			}
+			for(var i=0;i<statisticList.length;i++){
+				ctx.drawImage(multiplierImage,140,125+40*i);
+				ctx.drawImage(equalImage,170+maxLength*20,125+40*i);
+				var pointStr;
+				if(i<4) pointStr = pointEach[i]+"";
+				else if(i==4) pointStr = (statisticList[i]*pointPenalty) + "";
+				else pointStr = "0";
+				for(var j=pointStr.length-1;j>=0;j--){
+					ctx.drawImage(keyBoardImage, (pointStr[pointStr.length-j-1]<<0) * 30, 0, 30, 30, 350 - j*18, 120+40*i, 30, 30);
+				}
+			}
+			
+			ctx.drawImage(lineBreakImage,this.width/2-lineBreakImage.width/2,360);
+			ctx.drawImage(equalImage,170+maxLength*20,370);
+			var pointTotal = Point+"";
+			for(var j=pointTotal.length-1;j>=0;j--){
+				ctx.drawImage(keyBoardImage, (pointTotal[pointTotal.length-j-1]<<0) * 30, 0, 30, 30, 350 - j*18, 370, 30, 30);
+			}
+			ctx.drawImage(facebookIcon,60,430);
+			ctx.drawImage(likeIcon,70+facebookIcon.width,430);
 		}
 		scene.addChild(statisticActor);
 		
@@ -779,7 +849,7 @@ window.onload = function () {
 			var outputData = [];
 			if(str.length==0) return outputData;
 			var stringArray = str.split(",");
-			console.log(stringArray.length);
+			//console.log(stringArray.length);
 			for(var i=0;i<stringArray.length;i++){
 				var temp = stringArray[i].split(" ");
 				if(temp[0].charCodeAt(0)>57){
